@@ -21,7 +21,7 @@
 					<ul>
 						<li><a href="/">홈</a></li>
 						<li><a href="/notice">공지사항</a></li>
-						<li><a href="/board">자유게시판</a></li>
+						<li><a href="/free">자유게시판</a></li>
 						<li><a href="#">활동</a></li>
 						<li><a href="#">회계</a></li>
 					</ul>
@@ -73,12 +73,10 @@
 							<li><a aria-label="Next" th:href="@{/notice(page=${postList.totalPages})}">&raquo;</a></li>
 						</ul>
 
-						<div style="float: right">
-							<button class="button" onclick="location.href='/post'">글 쓰기</button>
+						<div style="float: right;">
+							<button class="button" style="vertical-align: center" onclick="location.href='/post'">글 쓰기</button>
 						</div>
 					</div>
-
-
 				</div>
 			</section>
 

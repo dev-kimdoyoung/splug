@@ -49,7 +49,8 @@ public class Post implements Serializable {
         this.user = user;
     }
 
-    public void update(String title, String content, PostType postType) {    // 게시글 업데이트 메소드
+    // 게시글 Update
+    public void update(String title, String content, PostType postType) {
         this.title = title;
         this.content = content;
         this.postType = postType;

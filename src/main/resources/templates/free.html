@@ -10,6 +10,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/page.css" />
 	</head>
 	<body>
 
@@ -20,7 +21,7 @@
 					<ul>
 						<li><a href="/">홈</a></li>
 						<li><a href="/notice">공지사항</a></li>
-						<li><a href="/board">자유게시판</a></li>
+						<li><a href="/free">자유게시판</a></li>
 						<li><a href="#">활동</a></li>
 						<li><a href="#">회계</a></li>
 					</ul>
@@ -34,14 +35,49 @@
 				<div class="container">
 
 					<header class="major special" style="margin-bottom: 2em;">
-						<h2>Generic</h2>
-						<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
+						<h2>자유게시판</h2>
 					</header>
 
-					<a href="#" class="image fit"><img src="images/pic01.jpg" alt="" /></a>
-					<p>Vis accumsan feugiat adipiscing nisl amet adipiscing accumsan blandit accumsan sapien blandit ac amet faucibus aliquet placerat commodo. Interdum ante aliquet commodo accumsan vis phasellus adipiscing. Ornare a in lacinia. Vestibulum accumsan ac metus massa tempor. Accumsan in lacinia ornare massa amet. Ac interdum ac non praesent. Cubilia lacinia interdum massa faucibus blandit nullam. Accumsan phasellus nunc integer. Accumsan euismod nunc adipiscing lacinia erat ut sit. Arcu amet. Id massa aliquet arcu accumsan lorem amet accumsan.</p>
-					<p>Amet nibh adipiscing adipiscing. Commodo ante vis placerat interdum massa massa primis. Tempus condimentum tempus non ac varius cubilia adipiscing placerat lorem turpis at. Aliquet lorem porttitor interdum. Amet lacus. Aliquam lobortis faucibus blandit ac phasellus. In amet magna non interdum volutpat porttitor metus a ante ac neque. Nisi turpis. Commodo col. Interdum adipiscing mollis ut aliquam id ante adipiscing commodo integer arcu amet Ac interdum ac non praesent. Cubilia lacinia interdum massa faucibus blandit nullam. Accumsan phasellus nunc integer. Accumsan euismod nunc adipiscing lacinia erat ut sit. Arcu amet. Id massa aliquet arcu accumsan lorem amet accumsan commodo odio cubilia ac eu interdum placerat placerat arcu commodo lobortis adipiscing semper ornare pellentesque.</p>
-					<p>Amet nibh adipiscing adipiscing. Commodo ante vis placerat interdum massa massa primis. Tempus condimentum tempus non ac varius cubilia adipiscing placerat lorem turpis at. Aliquet lorem porttitor interdum. Amet lacus. Aliquam lobortis faucibus blandit ac phasellus. In amet magna non interdum volutpat porttitor metus a ante ac neque. Nisi turpis. Commodo col. Interdum adipiscing mollis ut aliquam id ante adipiscing commodo integer arcu amet blandit adipiscing arcu ante.</p>
+					<table>
+						<thead>
+						<tr>
+							<th class="col-2">글 번호</th>
+							<th class="col-6">제목</th>
+							<th class="col-2">작성자</th>
+							<th class="col-2">작성 날짜</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr th:each="post : ${postList}">
+							<td th:text="${post.idx}"></td>
+							<td><a th:href="'/read?idx='+${post.idx}" th:text="${post.title}"></a></td>
+							<td th:text="testest"></td>
+							<td th:text="${#temporals.format(post.updatedDate,'yyyy-MM-dd HH:mm')}"></td>
+						</tr>
+						</tbody>
+					</table>
+
+					<!-- Pagination -->
+					<div class="page">
+						<ul class="pagination" th:with="startNumber=${T(Math).floor(postList.number/10)}*10+1, endNumber=(${postList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${postList.totalPages}">
+							<li><a aria-label="Previous" href="/notice?page=1">&laquo;</a></li>
+							<li th:style="${postList.first} ? 'display:none'">
+								<a th:href="@{/notice(page=${postList.number})}">&lsaquo;</a>
+							</li>
+							<li th:each="page :${#numbers.sequence(startNumber, endNumber)}" th:class="(${page} == ${postList.number}+1) ? 'active'">
+								<a th:href="@{/notice(page=${page})}" th:text="${page}"><span class="sr-only"></span></a>
+							</li>
+							<li th:style="${postList.last} ? 'display:none'">
+								<a th:href="@{/notice(page=${postList.number}+2)}">&rsaquo;</a>
+							</li>
+							<li><a aria-label="Next" th:href="@{/notice(page=${postList.totalPages})}">&raquo;</a></li>
+						</ul>
+
+						<div style="float: right">
+							<button class="button" onclick="location.href='/post'">글 쓰기</button>
+						</div>
+					</div>
+
 				</div>
 			</section>
 

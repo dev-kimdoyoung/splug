@@ -16,21 +16,20 @@ var post = {
 
     save : function () {
         var data = {
-            title: $('#post_title').val(),
-            postType: $('#post_type').val(),
-            content: $('#post_content').val()
-        };
+            title: $('#title').val(),
+            postType: $('#type').val(),
+            content: editor.getData()
+    };
 
-
-        if($('#post_type option:selected').val() == "--게시판--"){
+        if(data.postType == "--게시판--"){
             alert("게시판을 선택해주세요");
             return;
         }
-        else if($('#post_title').val() == ""){
+        else if(data.title == ""){
             alert("제목을 입력해주세요");
             return;
         }
-        else if($('#post_content').val() == ""){
+        else if(data.content == ""){
             alert("내용을 입력해주세요");
             return;
         }
@@ -42,20 +41,20 @@ var post = {
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
-            alert("글이 등록되었습니다.")
-            window.location.href = '/'+ $('#post_type option:selected').val();
+            alert("글이 등록되었습니다.");
+            window.location.href = '/'+ $('#type option:selected').val();
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
     },
     update : function () {
         var data = {
-            postType: $('#post_type').val(),
-            title: $('#post_title').val(),
-            content: $('#post_content').val()
+            postType: $('#type').val(),
+            title: $('#title').val(),
+            content: editor.getData()
         };
 
-        var idx = $('#post_idx').val();
+        var idx = $('#idx').val();
 
         $.ajax({
             type: 'PUT',
@@ -72,8 +71,8 @@ var post = {
     },
 
     delete : function () {
-        var idx = $('#post_idx').val();
-        var postType = $('#post_type').val();
+        var idx = $('#idx').val();
+        var postType = $('#type').val();
 
         $.ajax({
             type: 'DELETE',

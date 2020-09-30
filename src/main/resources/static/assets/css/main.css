@@ -1811,7 +1811,7 @@
 		transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 		background-color: #323037;
 		border-radius: 4px;
-		color: #ffffff !important;
+		color: #ffffff;
 		border: 0;
 		cursor: pointer;
 		display: inline-block;

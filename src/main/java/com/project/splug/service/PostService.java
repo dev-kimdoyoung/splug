@@ -33,8 +33,8 @@ public class PostService {
 
     // 게시글 저장
     @Transactional
-    public Long save(Post board) {
-        return postRepository.save(board).getIdx();
+    public Long save(Post post) {
+        return postRepository.save(post).getIdx();
     }
 
     // 게시글 수정

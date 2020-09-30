@@ -6,10 +6,18 @@
 -->
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<title>자유게시판</title>
+		<title>SPLUG</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="https://cdn.ckeditor.com/ckeditor5/22.0.0/classic/ckeditor.js"></script>
+
+		<style>
+			.ck-editor__editable{
+				min-height: 400px;
+				max-height: 400px;
+			}
+		</style>
 	</head>
 	<body>
 
@@ -20,7 +28,7 @@
 					<ul>
 						<li><a href="/">홈</a></li>
 						<li><a href="/notice">공지사항</a></li>
-						<li><a href="/board">자유게시판</a></li>
+						<li><a href="/free">자유게시판</a></li>
 						<li><a href="#">활동</a></li>
 						<li><a href="#">회계</a></li>
 					</ul>
@@ -33,42 +41,32 @@
 			<section id="main" class="wrapper">
 				<div class="container">
 
-					<header class="major special" style="margin-bottom: 2em;">
+					<header class="major special" style="margin-bottom: 0px;">
 						<h2>글쓰기</h2>
 					</header>
 
-					<input id="board_idx" type="hidden" th:value="${post?.idx}"/>
-					<table class="table">
-						<tr>
-							<th style="padding: 13px 0 0 15px;">게시판 선택</th>
-							<td>
-								<div class="pull-left">
-									<select class="form-control imput-sm" id="post_type" name="post_type">
-										<option>--게시판--</option>
-										<option th:value="notice" th:selected="${post?.postType?.name() == 'notice'}">공지사항</option>
-										<option th:value="free" th:selected="${post?.postType?.name() == 'free'}">자유게시판</option>
-									</select>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th style="padding: 13px 0 0 15px;">제목</th>
-							<td><input id="post_title" name="post_title" type="text" class="col-md-1 form-control input-sm" th:value="${post?.title}"/></td>
-						</tr>
-						<tr>
-							<th style="padding: 13px 0 0 15px;">내용</th>
-							<td><textarea id="post_content" name="post_content" class="col-md-1 form-control input-sm" style="height: 350px;" th:text="${post?.content}"></textarea><span class="help-block"></span></td>
-					</table>
-
-					<div class="bottom-button">
-						<div class="pull-left">
-							<button class="btn btn-primary" onclick="history.back()">목록으로</button>
+					<div>
+						<div class="md-3">
+							<label for="type">게시판</label>
+							<select class="form-control imput-sm" id="type" name="type">
+								<option>--게시판--</option>
+								<option th:value="notice" th:selected="${post?.postType?.name() == 'notice'}">공지사항</option>
+								<option th:value="free" th:selected="${post?.postType?.name() == 'free'}">자유게시판</option>
+							</select>
 						</div>
-
-						<div class="pull-right">
-							<button th:if="!${post?.idx}" type="button" class="btn btn-primary" id="save">글 쓰기</button>
-							<button th:if="${post?.idx}" type="button" class="btn btn-primary" id="update">완료</button>
+						<div class="mb-3">
+							<label for="title">제목</label>
+							<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
 						</div>
+						<div class="mb-6">
+							<label for="content">내용</label>
+							<textarea style="color: black" class="form-control" rows="10" name="content" id="content" placeholder="내용을 입력해 주세요" ></textarea>
+						</div>
+					</div>
+
+					<div style="margin-top: 30px;">
+						<button style="float: left" class="btn" onclick="history.back()">목록으로</button>
+						<button style="float: right" class="btn" id="save">글 쓰기</button>
 					</div>
 
 				</div>
@@ -96,6 +94,19 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/post.js"></script>
-
 	</body>
 </html>
+
+<script>
+	let editor;
+
+	ClassicEditor
+			.create( document.querySelector( '#content' ) )
+			.then(newEditor => {
+				editor = newEditor;
+			})
+			.catch( error => {
+				console.error( error );
+			} );
+
+</script>

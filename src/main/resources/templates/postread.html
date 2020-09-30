@@ -34,7 +34,7 @@
 				<div class="container">
 
 					<header class="major special" style="margin-bottom: 2em;">
-						<h2>글쓰기</h2>
+						<h2 th:text="${post.postType.value}"></h2>
 					</header>
 
 					<input id="board_idx" type="hidden" th:value="${post?.idx}"/>

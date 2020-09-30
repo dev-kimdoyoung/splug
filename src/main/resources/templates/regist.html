@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<!--
+	Spatial by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>공지사항</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+
+<!-- Header -->
+<header id="header">
+    <h1><strong><a href="/" style="font-size: 30px;">SPLUG</a></strong></h1>
+    <nav id="nav">
+        <ul>
+            <li><a href="/">홈</a></li>
+            <li><a href="/notice">공지사항</a></li>
+            <li><a href="/board">자유게시판</a></li>
+            <li><a href="#">활동</a></li>
+            <li><a href="#">회계</a></li>
+        </ul>
+    </nav>
+</header>
+
+<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+
+<!-- Main -->
+<section id="main" class="wrapper">
+    <div class="container" style="max-width: 500px; min-width: 460px;">
+
+        <header class="major special" style="margin-bottom: 2em;">
+            <h2>회원가입</h2>
+        </header>
+
+        <!-- 아이디, 비밀번호 입력 -->
+        <div class="row_group">
+            <div class="join_row">
+                <h3 class="join_title" style="margin: 20px 0px 5px 0px;">아이디</h3>
+                <input type="text" id="id" name="id" class="int" title="ID" maxlength="20">
+            </div>
+
+            <div class="join_row">
+                <h3 class="join_title" style="margin: 20px 0px 5px 0px;">비밀번호</h3>
+                <input type="password" id="pswd1" name="pswd1" class="int" title="비밀번호 입력" aria-describedby="pswd1Msg" maxlength="20"></span></span>
+
+                <h3 class="join_title" style="margin: 20px 0px 5px 0px;">비밀번호 재확인</h3>
+                <input type="password" id="pswd2" name="pswd2" class="int" title="비밀번호 재확인 입력" aria-describedby="pswd2Blind" maxlength="20">
+            </div>
+
+            <div class="join_row">
+                <h3 class="join_title" style="margin: 20px 0px 5px 0px;">학번</h3>
+                <input type="text" id="studentId" name="studentId" class="int" title="학번" maxlength="20"></span>
+            </div>
+
+            <div class="join_row">
+                <h3 class="join_title" style="margin: 20px 0px 5px 0px;">이름</h3>
+                <input type="text" id="name" name="name" title="이름" class="int" maxlength="40">
+            </div>
+
+            <div class="join_row">
+                <h3 class="join_title" style="margin: 20px 0px 5px 0px;">생년월일</h3>
+                <input type="text" id="birthday" name="birthday" title="생년월일" class="int" maxlength="7" placeholder="ex) 960428">
+            </div>
+
+            <div class="join_row">
+                <h3 class="join_title" style="margin: 20px 0px 5px 0px;">이메일</h3>
+                <input type="text" id="email" name="email" title="이메일" class="int" maxlength="100" placeholder="ex) example@example.com">
+            </div>
+
+            <div class="join_row">
+                <h3 class="join_title" style="margin: 20px 0px 5px 0px;">학과</h3>
+                <select name="category" id="category">
+                    <option value>-- 학과 --</option>
+                    <option value="1">컴퓨터학부</option>
+                    <option value="2">소프트웨어학부</option>
+                    <option value="3">기타</option>
+                </select>
+            </div>
+
+            <div class="join_row">
+                <h3 class="join_title" style="margin: 20px 0px 5px 0px;">핸드폰 번호</h3>
+                <input type="text" id="phoneNumber" name="phoneNumber" title="핸드폰 번호" class="int" maxlength="13" placeholder="ex) 010-1234-5678">
+            </div>
+        </div>
+
+        <div class="row_group" style="width: 100%; margin-top: 40px;">
+            <a href="#" class="button alt" style="margin-left: 2.5%; width: 45%;">취소</a>
+            <a href="#" class="button special" style="margin-left: 4%; width: 45%;">가입요청</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+    <div class="container">
+        <ul class="icons">
+            <li><a href="#" class="icon fa-facebook"></a></li>
+            <li><a href="#" class="icon fa-twitter"></a></li>
+            <li><a href="#" class="icon fa-instagram"></a></li>
+        </ul>
+        <ul class="copyright">
+            <li>&copy; Untitled</li>
+            <li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+            <li>Images: <a href="http://unsplash.com">Unsplash</a></li>
+        </ul>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/skel.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>

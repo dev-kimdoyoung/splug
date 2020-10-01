@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<!--
+	Spatial by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>공지사항</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+
+<!-- Header -->
+<header id="header">
+    <h1><strong><a href="/" style="font-size: 30px;">SPLUG</a></strong></h1>
+    <nav id="nav">
+        <ul>
+            <li><a href="/">홈</a></li>
+            <li><a href="/notice">공지사항</a></li>
+            <li><a href="/free">자유게시판</a></li>
+            <li><a href="#">활동</a></li>
+            <li><a href="/account">회계</a></li>
+        </ul>
+    </nav>
+</header>
+
+<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+
+<!-- Main -->
+<section id="main" class="wrapper">
+    <div class="container" style="max-width: 500px; min-width: 460px;">
+
+        <header class="major special" style="margin-bottom: 2em;">
+            <h2>회계 내역 추가</h2>
+        </header>
+
+        <div class="row_group">
+            <div class="join_row">
+                <h3 class="join_title" style="margin: 20px 0px 5px 0px;">날짜</h3>
+                <input type="text" id="date" name="date" title="날짜" maxlength="10" placeholder="ex) 2020.03.01">
+            </div>
+
+            <div class="join_row">
+                <h3 class="join_title" style="margin: 20px 0px 5px 0px;">사용처</h3>
+                <input type="text" id="usePlace" name="usePlace" title="사용처" maxlength="20">
+
+            </div>
+
+            <div>
+                <h3 class="join_title" style="margin: 20px 0px 5px 0px;">사용 금액</h3>
+                <input type="text" id="useAmount" name="useAmount" class="int" title="사용 금액">
+            </div>
+
+            <div class="join_row">
+                <h3 class="join_title" style="margin: 20px 0px 5px 0px;">비고(선택)</h3>
+                <input type="text" id="other" name="other" title="이름" class="int" maxlength="10">
+            </div>
+
+        <div class="row_group" style="width: 100%; margin-top: 40px;">
+            <button style="float: left" class="btn alt" onclick="history.back()">취소</button>
+            <button style="float: right" class="btn" id="save">저장</button>
+        </div>
+
+    </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+    <div class="container">
+        <ul class="icons">
+            <li><a href="#" class="icon fa-facebook"></a></li>
+            <li><a href="#" class="icon fa-twitter"></a></li>
+            <li><a href="#" class="icon fa-instagram"></a></li>
+        </ul>
+        <ul class="copyright">
+            <li>&copy; Untitled</li>
+            <li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+            <li>Images: <a href="http://unsplash.com">Unsplash</a></li>
+        </ul>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/skel.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/account.js"></script>
+
+</body>
+</html>

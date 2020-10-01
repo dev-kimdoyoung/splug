@@ -1,4 +1,4 @@
-var comment = {
+var account = {
     init : function () {
         var _this = this;
         $('#save').on('click', function () {
@@ -16,24 +16,34 @@ var comment = {
 
     save : function () {
         var data = {
-            postIdx: $('#post_idx').val(),
-            content: $('#post_comment').val()
+            date: $('#date').val(),
+            usePlace: $('#usePlace').val(),
+            useAmount: $('#useAmount').val(),
+            other: $('#other').val()
         };
 
-        if(data.content == ""){
-            alert("댓글을 입력해주세요");
+        if(data.date == ""){
+            alert("날짜를 입력해주세요");
+            return;
+        }
+        if(data.usePlace == ""){
+            alert("사용처를 입력해주세요");
+            return;
+        }
+        if(data.useAmount == ""){
+            alert("사용금액을 입력해주세요");
             return;
         }
 
         $.ajax({
             type: 'POST',
-            url: '/api/v1/comment',
+            url: '/api/v1/account',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
-            alert("댓글이 등록되었습니다.");
-            window.location.reload();
+            alert("등록되었습니다.");
+            window.location.href='/account';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -80,4 +90,4 @@ var comment = {
     }
 };
 
-comment.init();
+account.init();

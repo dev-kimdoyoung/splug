@@ -1,11 +1,13 @@
 package com.project.splug;
 
+import com.project.splug.domain.Account;
 import com.project.splug.domain.Comment;
 import com.project.splug.domain.Post;
 import com.project.splug.domain.User;
 import com.project.splug.domain.enums.Department;
 import com.project.splug.domain.enums.PostType;
 import com.project.splug.domain.enums.RoleType;
+import com.project.splug.repository.AccountRepository;
 import com.project.splug.repository.CommentRepository;
 import com.project.splug.repository.PostRepository;
 import com.project.splug.repository.UserRepository;
@@ -25,7 +27,7 @@ public class SplugApplication {
 
 	// 테스트용 더미 데이터 생성
 	@Bean
-	public CommandLineRunner runner(PostRepository postRepository, UserRepository userRepository, CommentRepository commentRepository){
+	public CommandLineRunner runner(PostRepository postRepository, UserRepository userRepository, CommentRepository commentRepository, AccountRepository accountRepository){
 		return args -> {
 
 			// 테스트용 관리자 계정 생성
@@ -109,6 +111,22 @@ public class SplugApplication {
 					.post(notice)
 					.content("저두요")
 					.user(user2)
+					.build()
+			);
+
+			Account account1 = accountRepository.save(Account.builder()
+					.date("2020.03.01")
+					.usePlace("SPLUG 2019 이월 회비")
+					.useAmount("+500000")
+					.remainAmount("1000000")
+					.build()
+			);
+
+			Account account2 = accountRepository.save(Account.builder()
+					.date("2020.03.10")
+					.usePlace("SPLUG 홍보 포스터 제작")
+					.useAmount("-50000")
+					.remainAmount("950000")
 					.build()
 			);
 		};

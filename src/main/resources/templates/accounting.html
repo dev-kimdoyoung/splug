@@ -22,7 +22,7 @@
 						<li><a href="/notice">공지사항</a></li>
 						<li><a href="/free">자유게시판</a></li>
 						<li><a href="#">활동</a></li>
-						<li><a href="#">회계</a></li>
+						<li><a href="/account">회계</a></li>
 					</ul>
 				</nav>
 			</header>
@@ -34,38 +34,35 @@
 				<div class="container">
 
 					<header class="major special" style="margin-bottom: 2em;">
-						<h2 th:text="${post.postType.value}"></h2>
+						<h2>회계</h2>
 					</header>
 
-					<input id="post_idx" type="hidden" th:value="${post?.idx}"/>
-					<input id="post_type" type="hidden" th:value="${post?.postType}"/>
-					<table class="table">
+					<table class="alt">
+						<thead>
 						<tr>
-							<th>제목</th>
-							<td><textarea id="post_title" name="post_title" th:text="${post?.title}" readonly/></td>
+							<th class="col-1">번호</th>
+							<th class="col-2">날짜</th>
+							<th class="col-3">사용처</th>
+							<th class="col-2">사용 금액</th>
+							<th class="col-2">잔여 금액</th>
+							<th class="col-2">비고</th>
 						</tr>
-						<tr>
-							<th>내용</th>
-							<td><textarea id="post_content" name="post_content" style="height: 350px;" th:text="${post?.content}" readonly></textarea></td>
+						</thead>
+						<tbody>
+						<tr th:each="account : ${accountList}">
+							<td th:text="${account.idx}"></td>
+							<td th:text="${account.date}"></td>
+							<td th:text="${account.usePlace}"></td>
+							<td th:text="${account.useAmount} + '원'"></td>
+							<td th:text="${account.remainAmount} + '원'"></td>
+							<td th:text="${account.other}"></td>
 						</tr>
-
-						<tr>
-							<th>댓글</th>
-							<td><textarea id="post_comment" name="post_comment" placeholder="댓글 쓰기" style="resize: none;"></textarea><button class="btn" id="save">댓글 쓰기</button></td>
-						</tr>
-
-						<tr th:each="comment : ${commentList}">
-							<th th:text="${comment.user.name}"></th>
-							<td th:text="${comment.content}"></td>
-						</tr>
+						</tbody>
 					</table>
 
-					<div class="bottom-button">
-						<div class="pull-left">
-							<button class="btn btn-primary" onclick="history.back()">목록으로</button>
-						</div>
+					<div style="float: right;">
+						<button class="button" style="vertical-align: center" onclick="location.href='/addAccount'">추가</button>
 					</div>
-
 				</div>
 			</section>
 

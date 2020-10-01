@@ -2,6 +2,7 @@ package com.project.splug.controller;
 
 import com.project.splug.domain.Comment;
 import com.project.splug.domain.Post;
+import com.project.splug.domain.dto.AccountSaveRequestDTO;
 import com.project.splug.domain.dto.CommentSaveRequestDTO;
 import com.project.splug.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +50,11 @@ public class ApiController {
     public Long deleteDelete(@PathVariable Long idx){
         postService.deleteComment(idx);
         return idx;
+    }
+
+    // 회계 내역 생성
+    @PostMapping("/api/v1/account")
+    public Long saveAccount(@RequestBody AccountSaveRequestDTO accountSaveRequestDTO){
+        return postService.saveAccount(accountSaveRequestDTO);
     }
 }

@@ -63,4 +63,16 @@ public class PageController {
     public String regist(){
         return "regist";
     }
+
+    // 회계
+    @GetMapping("/account")
+    public String account(Model model){
+        model.addAttribute("accountList", postService.findAllAccount());
+        return "accounting";
+    }
+
+    @GetMapping("/addAccount")
+    public String addAccount(){
+        return "addAccount";
+    }
 }

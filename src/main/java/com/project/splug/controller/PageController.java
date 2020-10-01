@@ -1,5 +1,6 @@
 package com.project.splug.controller;
 
+import com.project.splug.domain.Post;
 import com.project.splug.domain.enums.PostType;
 import com.project.splug.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -36,10 +37,18 @@ public class PageController {
         return "free";
     }
 
+    // 게시글 쓰기 폼
+    @GetMapping("/post")
+    public String post(){
+        return "postwrite";
+    }
+
     // 게시글 읽기 폼
     @GetMapping("/read")
     public String board(@RequestParam(value = "idx", defaultValue = "0") Long idx, Model model){
-        model.addAttribute("post", postService.findPostByIdx(idx));
+        Post post = postService.findPostByIdx(idx);
+        model.addAttribute("post", post);
+        model.addAttribute("commentList", postService.findCommentByPost(post));
         return "postread";
     }
 
@@ -53,11 +62,5 @@ public class PageController {
     @GetMapping("/regist")
     public String regist(){
         return "regist";
-    }
-
-    // 게시글 쓰기 폼
-    @GetMapping("/post")
-    public String post(){
-        return "postwrite";
     }
 }

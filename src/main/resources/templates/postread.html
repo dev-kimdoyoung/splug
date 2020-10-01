@@ -37,8 +37,8 @@
 						<h2 th:text="${post.postType.value}"></h2>
 					</header>
 
-					<input id="board_idx" type="hidden" th:value="${post?.idx}"/>
-					<input id="board_type" type="hidden" th:value="${post?.postType}"/>
+					<input id="post_idx" type="hidden" th:value="${post?.idx}"/>
+					<input id="post_type" type="hidden" th:value="${post?.postType}"/>
 					<table class="table">
 						<tr>
 							<th>제목</th>
@@ -47,6 +47,16 @@
 						<tr>
 							<th>내용</th>
 							<td><textarea id="post_content" name="post_content" style="height: 350px;" th:text="${post?.content}" readonly></textarea></td>
+						</tr>
+
+						<tr>
+							<th>댓글</th>
+							<td><textarea id="post_comment" name="post_comment" placeholder="댓글 쓰기" style="resize: none;"></textarea><button class="btn" id="save">댓글 쓰기</button></td>
+						</tr>
+
+						<tr th:each="comment : ${commentList}">
+							<th th:text="${comment.user.name}"></th>
+							<td th:text="${comment.content}"></td>
 						</tr>
 					</table>
 
@@ -80,7 +90,7 @@
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-			<script src="assets/js/post.js"></script>
+			<script src="assets/js/comment.js"></script>
 
 	</body>
 </html>

@@ -1,4 +1,4 @@
-var post = {
+var comment = {
     init : function () {
         var _this = this;
         $('#save').on('click', function () {
@@ -16,33 +16,24 @@ var post = {
 
     save : function () {
         var data = {
-            title: $('#title').val(),
-            postType: $('#type').val(),
-            content: editor.getData()
+            postIdx: $('#post_idx').val(),
+            content: $('#post_comment').val()
         };
 
-        if(data.postType == "--게시판--"){
-            alert("게시판을 선택해주세요");
-            return;
-        }
-        else if(data.title == ""){
-            alert("제목을 입력해주세요");
-            return;
-        }
-        else if(data.content == ""){
-            alert("내용을 입력해주세요");
+        if(data.content == ""){
+            alert("댓글을 입력해주세요");
             return;
         }
 
         $.ajax({
             type: 'POST',
-            url: '/api/v1/posts',
+            url: '/api/v1/comment',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
-            alert("글이 등록되었습니다.");
-            window.location.href = '/'+ $('#type option:selected').val();
+            alert("댓글이 등록되었습니다.");
+            window.location.reload();
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -88,4 +79,4 @@ var post = {
     }
 };
 
-post.init();
+comment.init();

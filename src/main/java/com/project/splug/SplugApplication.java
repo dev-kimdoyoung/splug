@@ -1,10 +1,12 @@
 package com.project.splug;
 
+import com.project.splug.domain.Comment;
 import com.project.splug.domain.Post;
 import com.project.splug.domain.User;
 import com.project.splug.domain.enums.Department;
 import com.project.splug.domain.enums.PostType;
 import com.project.splug.domain.enums.RoleType;
+import com.project.splug.repository.CommentRepository;
 import com.project.splug.repository.PostRepository;
 import com.project.splug.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -23,7 +25,7 @@ public class SplugApplication {
 
 	// 테스트용 더미 데이터 생성
 	@Bean
-	public CommandLineRunner runner(PostRepository postRepository, UserRepository userRepository){
+	public CommandLineRunner runner(PostRepository postRepository, UserRepository userRepository, CommentRepository commentRepository){
 		return args -> {
 
 			// 테스트용 관리자 계정 생성
@@ -34,6 +36,38 @@ public class SplugApplication {
 					.studentId("20150000")
 					.email("test@test.com")
 					.department(Department.computer)
+					.dateOfBirth("960428")
+					.phoneNumber("010-1234-5678")
+					.password("{noop}123")
+					.lastLoginTime(LocalDateTime.now())
+					.roleType(RoleType.ADMIN)
+					.build()
+			);
+
+			// 테스트용 유저 계정 생성
+			User user1 = userRepository.save(User.builder()
+					.id("user1")
+					.password("123")
+					.name("유저1")
+					.studentId("20150000")
+					.email("test@test.com")
+					.department(Department.computer)
+					.dateOfBirth("960428")
+					.phoneNumber("010-1234-5678")
+					.password("{noop}123")
+					.lastLoginTime(LocalDateTime.now())
+					.roleType(RoleType.ADMIN)
+					.build()
+			);
+
+			// 테스트용 유저 계정 생성
+			User user2 = userRepository.save(User.builder()
+					.id("user2")
+					.password("123")
+					.name("유저2")
+					.studentId("20150000")
+					.email("test@test.com")
+					.department(Department.software)
 					.dateOfBirth("960428")
 					.phoneNumber("010-1234-5678")
 					.password("{noop}123")
@@ -61,6 +95,20 @@ public class SplugApplication {
 					.createdDate(LocalDateTime.now())
 					.updatedDate(LocalDateTime.now())
 					.user(admin)
+					.build()
+			);
+
+			Comment comment1 = commentRepository.save(Comment.builder()
+					.post(notice)
+					.content("알겠습니다.")
+					.user(user1)
+					.build()
+			);
+
+			Comment comment2 = commentRepository.save(Comment.builder()
+					.post(notice)
+					.content("저두요")
+					.user(user2)
 					.build()
 			);
 		};

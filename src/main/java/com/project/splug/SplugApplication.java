@@ -83,8 +83,6 @@ public class SplugApplication {
 					.title("SPLUG 공지사항")
 					.content("OO월 OO일 OO시 정모입니다.")
 					.postType(PostType.notice)
-					.createdDate(LocalDateTime.now())
-					.updatedDate(LocalDateTime.now())
 					.user(admin)
 					.build()
 			);
@@ -94,12 +92,11 @@ public class SplugApplication {
 					.title("반갑습니다.")
 					.content("반갑습니다.")
 					.postType(PostType.free)
-					.createdDate(LocalDateTime.now())
-					.updatedDate(LocalDateTime.now())
 					.user(admin)
 					.build()
 			);
 
+			// 댓글 생성
 			Comment comment1 = commentRepository.save(Comment.builder()
 					.post(notice)
 					.content("알겠습니다.")
@@ -107,6 +104,7 @@ public class SplugApplication {
 					.build()
 			);
 
+			// 댓글 생성
 			Comment comment2 = commentRepository.save(Comment.builder()
 					.post(notice)
 					.content("저두요")
@@ -114,14 +112,16 @@ public class SplugApplication {
 					.build()
 			);
 
+			// 회계 내역 생성
 			Account account1 = accountRepository.save(Account.builder()
 					.date("2020.03.01")
 					.usePlace("SPLUG 2019 이월 회비")
-					.useAmount("+500000")
+					.useAmount("500000")
 					.remainAmount("1000000")
 					.build()
 			);
 
+			// 회계 내역 생성
 			Account account2 = accountRepository.save(Account.builder()
 					.date("2020.03.10")
 					.usePlace("SPLUG 홍보 포스터 제작")

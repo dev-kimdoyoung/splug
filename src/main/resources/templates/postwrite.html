@@ -10,8 +10,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<script src="https://cdn.ckeditor.com/ckeditor5/22.0.0/classic/ckeditor.js"></script>
-
+		<script src="assets/js/ckeditor/ckeditor.js"></script>
 		<style>
 			.ck-editor__editable{
 				min-height: 400px;
@@ -61,6 +60,7 @@
 						<div class="mb-6">
 							<label for="content">내용</label>
 							<textarea style="color: black" class="form-control" rows="10" name="content" id="content" placeholder="내용을 입력해 주세요" ></textarea>
+							<script>CKEDITOR.replace('content',{filebrowserUploadUrl:'/api/v1/imageUpload'});</script>
 						</div>
 					</div>
 
@@ -94,18 +94,6 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/post.js"></script>
+
 	</body>
 </html>
-
-<script>
-	let editor;
-
-	ClassicEditor.create( document.querySelector( '#content' ))
-			.then(newEditor => {
-				editor = newEditor;
-			})
-			.catch( error => {
-				console.error( error );
-			} );
-
-</script>

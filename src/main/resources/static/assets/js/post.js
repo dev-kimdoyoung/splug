@@ -15,21 +15,22 @@ var post = {
     },
 
     save : function () {
+
         var data = {
             title: $('#title').val(),
             postType: $('#type').val(),
-            content: editor.getData()
+            content: CKEDITOR.instances.content.getData()
         };
 
         if(data.postType == "--게시판--"){
             alert("게시판을 선택해주세요");
             return;
         }
-        else if(data.title == ""){
+        else if(data.title.length < 1){
             alert("제목을 입력해주세요");
             return;
         }
-        else if(data.content == ""){
+        else if(data.content.length < 1){
             alert("내용을 입력해주세요");
             return;
         }

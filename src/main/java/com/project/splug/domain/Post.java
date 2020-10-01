@@ -4,6 +4,7 @@ import com.project.splug.domain.enums.PostType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Setter
 @Getter // get 메소드 생성
 @NoArgsConstructor  // 생성자 생성
 @Entity // 테이블과 1대1 매칭
@@ -42,12 +44,12 @@ public class Post implements Serializable {
     private User user;
 
     @Builder
-    public Post(String title, String content, PostType postType, LocalDateTime createdDate, LocalDateTime updatedDate, User user){
+    public Post(String title, String content, PostType postType, User user){
         this.title = title;
         this.content = content;
         this.postType = postType;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
+        this.createdDate = LocalDateTime.now();
+        this.updatedDate = LocalDateTime.now();
         this.user = user;
     }
 

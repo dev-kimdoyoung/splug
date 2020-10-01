@@ -2,6 +2,8 @@ package com.project.splug.controller;
 
 import com.project.splug.domain.Post;
 import com.project.splug.domain.enums.PostType;
+import com.project.splug.service.AccountService;
+import com.project.splug.service.CommentService;
 import com.project.splug.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PageController {
 
     private final PostService postService;
+    private final CommentService commentService;
+    private final AccountService accountService;
 
     // 메인페이지
     @GetMapping("/")
@@ -48,7 +52,7 @@ public class PageController {
     public String board(@RequestParam(value = "idx", defaultValue = "0") Long idx, Model model){
         Post post = postService.findPostByIdx(idx);
         model.addAttribute("post", post);
-        model.addAttribute("commentList", postService.findCommentByPost(post));
+        model.addAttribute("commentList", commentService.findCommentByPost(post));
         return "postread";
     }
 
@@ -67,7 +71,7 @@ public class PageController {
     // 회계
     @GetMapping("/account")
     public String account(Model model){
-        model.addAttribute("accountList", postService.findAllAccount());
+        model.addAttribute("accountList", accountService.findAllAccount());
         return "accounting";
     }
 

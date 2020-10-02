@@ -1,6 +1,7 @@
 package com.project.splug.service;
 
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,7 +14,7 @@ import java.io.*;
 import java.util.UUID;
 
 @Service
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class ImageUploadService {
 
     private String fileDir = "/Users/ggomak/Desktop/splug/src/main/resources/static/images/post/";

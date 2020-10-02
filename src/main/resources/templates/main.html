@@ -4,7 +4,7 @@
 	templated.co @templatedco
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>SPLUG</title>
 		<meta charset="utf-8" />
@@ -34,8 +34,9 @@
 				<h2>SPLUG</h2>
 				<p>Soongsil Power Linux User Group <br /> 숭실대학교 컴퓨터학부 & 소프트웨어학부 리눅스 소모임</p>
 				<ul class="actions">
-					<li><a href="/regist" class="button special big">회원가입</a></li>
-					<li><a href="/login" class="button special big">로그인</a></li>
+					<li th:if="${sessionUser == null}"><a href="/regist" class="button special big">회원가입</a></li>
+					<li th:if="${sessionUser == null}"><a href="/login" class="button special big">로그인</a></li>
+					<li th:if="${sessionUser != null}"><a href="/logout" class="button special big">로그아웃</a></li>
 				</ul>
 			</section>
 

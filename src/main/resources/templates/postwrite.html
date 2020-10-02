@@ -11,30 +11,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<script src="assets/js/ckeditor/ckeditor.js"></script>
-		<style>
-			.ck-editor__editable{
-				min-height: 400px;
-				max-height: 400px;
-			}
-		</style>
 	</head>
 	<body>
 
 		<!-- Header -->
-			<header id="header">
-				<h1><strong><a href="/" style="font-size: 30px;">SPLUG</a></strong></h1>
-				<nav id="nav">
-					<ul>
-						<li><a href="/">홈</a></li>
-						<li><a href="/notice">공지사항</a></li>
-						<li><a href="/free">자유게시판</a></li>
-						<li><a href="#">활동</a></li>
-						<li><a href="#">회계</a></li>
-					</ul>
-				</nav>
-			</header>
-
-			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+		<header th:include="html/header.html"></header>
 
 		<!-- Main -->
 			<section id="main" class="wrapper">
@@ -43,6 +24,9 @@
 					<header class="major special" style="margin-bottom: 0px;">
 						<h2>글쓰기</h2>
 					</header>
+
+					<input id="sessionUser_roleType" type="hidden" th:value="${sessionUser.roleType.name()}"/>
+					<input id="post_idx" type="hidden" th:value="${post?.idx}"/>
 
 					<div>
 						<div class="md-3">
@@ -55,18 +39,21 @@
 						</div>
 						<div class="mb-3">
 							<label for="title">제목</label>
-							<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
+							<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요" th:value="${post?.title}">
 						</div>
 						<div class="mb-6">
 							<label for="content">내용</label>
-							<textarea style="color: black" class="form-control" rows="10" name="content" id="content" placeholder="내용을 입력해 주세요" ></textarea>
-							<script>CKEDITOR.replace('content',{filebrowserUploadUrl:'/api/v1/imageUpload'});</script>
+							<textarea style="color: black" class="form-control" rows="10" name="content" id="content" placeholder="내용을 입력해 주세요" th:utext="${post?.content}"></textarea>
+							<script>
+								CKEDITOR.replace('content',{filebrowserUploadUrl:'/api/v1/imageUpload'});
+							</script>
 						</div>
 					</div>
 
 					<div style="margin-top: 30px;">
 						<button style="float: left" class="btn" onclick="history.back()">목록으로</button>
-						<button style="float: right" class="btn" id="save">글 쓰기</button>
+						<button th:if="!${post?.idx}" style="float: right" type="button" class="btn btn-primary" id="save">글 쓰기</button>
+						<button th:if="${post?.idx}" style="float: right" type="button" class="btn btn-primary" id="post_update">완료</button>
 					</div>
 
 				</div>

@@ -43,14 +43,18 @@ public class Post implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
+    @Column
+    private int views;
+
     @Builder
-    public Post(String title, String content, PostType postType, User user){
+    public Post(String title, String content, PostType postType, User user, int views){
         this.title = title;
         this.content = content;
         this.postType = postType;
         this.createdDate = LocalDateTime.now();
         this.updatedDate = LocalDateTime.now();
         this.user = user;
+        this.views = views;
     }
 
     // 게시글 Update
@@ -59,5 +63,10 @@ public class Post implements Serializable {
         this.content = content;
         this.postType = postType;
         this.updatedDate = LocalDateTime.now();
+    }
+
+    // 조회수 Update
+    public void updatePostViews(int views){
+        this.views = views + 1;
     }
 }

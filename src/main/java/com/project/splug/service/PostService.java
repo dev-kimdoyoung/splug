@@ -11,6 +11,7 @@ import com.project.splug.repository.AccountRepository;
 import com.project.splug.repository.CommentRepository;
 import com.project.splug.repository.PostRepository;
 import com.project.splug.repository.UserRepository;
+import com.project.splug.security.dto.SessionUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,6 +34,8 @@ import java.util.UUID;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
     public Page<Post> findPostList(Pageable pageable, PostType postType) {
 
@@ -47,7 +50,11 @@ public class PostService {
 
     // 게시글 저장
     @Transactional
-    public Long save(Post post) {
+    public Long save(Post post, SessionUser sessionUser) {
+        User user = userRepository.findById(sessionUser.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + sessionUser.getId()));
+
+        post.setUser(user);
         post.setCreatedDate(LocalDateTime.now());
         post.setUpdatedDate(LocalDateTime.now());
 
@@ -71,6 +78,13 @@ public class PostService {
         Post post = postRepository.findById(idx)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + idx));
 
+        commentRepository.deleteAllByPost(post);
         postRepository.delete(post);
+    }
+
+    // 조회수 업데이트
+    @Transactional
+    public void updatePostViews(Post post){
+        post.updatePostViews(post.getViews());
     }
 }

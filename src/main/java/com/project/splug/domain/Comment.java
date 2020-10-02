@@ -3,10 +3,12 @@ package com.project.splug.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Setter
 @Getter // get 메소드 생성
 @NoArgsConstructor  // 생성자 생성
 @Entity // 테이블과 1대1 매칭
@@ -17,6 +19,7 @@ public class Comment {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
+
 
     @OneToOne(fetch = FetchType.LAZY)
     private Post post;
@@ -40,14 +43,6 @@ public class Comment {
         this.user = user;
         this.createdDate = LocalDateTime.now();
         this.updatedDate = LocalDateTime.now();
-    }
-
-    public void setPost(Post post){
-        this.post = post;
-    }
-
-    public void setUser(User user){
-        this.user = user;
     }
 
     public void update(String content){

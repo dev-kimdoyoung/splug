@@ -4,10 +4,10 @@ import com.project.splug.domain.Comment;
 import com.project.splug.domain.Post;
 import com.project.splug.domain.User;
 import com.project.splug.domain.dto.CommentSaveRequestDTO;
-import com.project.splug.repository.AccountRepository;
 import com.project.splug.repository.CommentRepository;
 import com.project.splug.repository.PostRepository;
 import com.project.splug.repository.UserRepository;
+import com.project.splug.security.dto.SessionUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,17 +28,18 @@ public class CommentService {
 
     // 댓글 생성
     @Transactional
-    public Long save(CommentSaveRequestDTO commentSaveRequestDTO){
+    public Long save(CommentSaveRequestDTO commentSaveRequestDTO, SessionUser sessionUser){
         Post post = postRepository.findById(commentSaveRequestDTO.getPostIdx())
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + commentSaveRequestDTO.getPostIdx()));
 
-        User user = userRepository.findById(new Long(1))
+        User user = userRepository.findById(sessionUser.getId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
 
         Comment comment = commentSaveRequestDTO.toEntity();
         comment.setPost(post);
         comment.setUser(user);
-
+        comment.setContent(comment.getContent().replace("\r\n", "<br>"));
+        comment.setContent(comment.getContent().replace("\n", "<br>"));
         return commentRepository.save(comment).getIdx();
     }
 

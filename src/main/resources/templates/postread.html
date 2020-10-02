@@ -14,24 +14,11 @@
 	<body>
 
 		<!-- Header -->
-			<header id="header">
-				<h1><strong><a href="/" style="font-size: 30px;">SPLUG</a></strong></h1>
-				<nav id="nav">
-					<ul>
-						<li><a href="/">홈</a></li>
-						<li><a href="/notice">공지사항</a></li>
-						<li><a href="/free">자유게시판</a></li>
-						<li><a href="#">활동</a></li>
-						<li><a href="#">회계</a></li>
-					</ul>
-				</nav>
-			</header>
-
-			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+		<header th:include="html/header.html"></header>
 
 		<!-- Main -->
 			<section id="main" class="wrapper">
-				<div class="container">
+				<div class="container" style="overflow: hidden">
 
 					<header class="major special" style="margin-bottom: 2em;">
 						<h2 th:text="${post.postType.value}"></h2>
@@ -39,6 +26,11 @@
 
 					<input id="post_idx" type="hidden" th:value="${post?.idx}"/>
 					<input id="post_type" type="hidden" th:value="${post?.postType}"/>
+
+					<div style="float: right">
+						<a th:onclick="'window.location.href=\'/postUpdate?idx=' + ${post.idx} + '\''" th:if="${sessionUser.id == post.user.id}">수정</a>
+						<a id="post_delete" th:if="${sessionUser.id == post.user.id}">삭제</a>
+					</div>
 					<table class="table">
 						<tr>
 							<th>제목</th>
@@ -48,22 +40,29 @@
 							<th>내용</th>
 							<td style="height: 200px;"><p th:utext="${post?.content}"></p></td>
 						</tr>
+					</table>
 
+					<h3>댓글</h3>
+					<table class="table" id="comment_table">
 						<tr>
-							<th>댓글</th>
-							<td><textarea id="post_comment" name="post_comment" placeholder="댓글 쓰기" style="resize: none;"></textarea><button class="btn" id="save">댓글 쓰기</button></td>
+							<th width="10%" class="col-2">작성자</th>
+							<th width="70%" class="col-6">내용</th>
+							<th width="20%" class="col-2"></th>
 						</tr>
 
 						<tr th:each="comment : ${commentList}">
-							<th th:text="${comment.user.name}"></th>
-							<td th:text="${comment.content}"></td>
+							<input th:value="${comment.idx}" type="hidden"/>
+							<td th:text="${comment.user.name}"></td>
+							<td th:utext="${comment.content}"></td>
+							<td th:text="${#temporals.format(comment.updatedDate,'yyyy-MM-dd HH:mm')}"></td>
 						</tr>
 					</table>
 
-					<div class="bottom-button">
-						<div class="pull-left">
-							<button class="btn btn-primary" onclick="history.back()">목록으로</button>
-						</div>
+					<div style="float: left; width: 80%; margin-right: 3%;">
+						<textarea id="post_comment" name="post_comment" placeholder="댓글 쓰기" style="resize: none;"></textarea>
+					</div>
+					<div style="float: right; width: 15%;">
+						<button class="button fit" id="comment_save">댓글 작성</button>
 					</div>
 
 				</div>
@@ -91,6 +90,7 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/comment.js"></script>
+			<script src="assets/js/post.js"></script>
 
 	</body>
 </html>

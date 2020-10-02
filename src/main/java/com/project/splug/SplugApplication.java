@@ -15,11 +15,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class SplugApplication {
+
+	BCryptPasswordEncoder bcryptPasswordEncoder = new BCryptPasswordEncoder();
 
 	public static void main(String[] args) {
 		SpringApplication.run(SplugApplication.class, args);
@@ -33,14 +36,13 @@ public class SplugApplication {
 			// 테스트용 관리자 계정 생성
 			User admin = userRepository.save(User.builder()
 					.id("admin")
-					.password("123")
+					.password(bcryptPasswordEncoder.encode("123"))
 					.name("관리자")
 					.studentId("20150000")
 					.email("test@test.com")
 					.department(Department.computer)
 					.dateOfBirth("960428")
 					.phoneNumber("010-1234-5678")
-					.password("{noop}123")
 					.lastLoginTime(LocalDateTime.now())
 					.roleType(RoleType.ADMIN)
 					.build()
@@ -49,32 +51,30 @@ public class SplugApplication {
 			// 테스트용 유저 계정 생성
 			User user1 = userRepository.save(User.builder()
 					.id("user1")
-					.password("123")
+					.password(bcryptPasswordEncoder.encode("123"))
 					.name("유저1")
 					.studentId("20150000")
 					.email("test@test.com")
 					.department(Department.computer)
 					.dateOfBirth("960428")
 					.phoneNumber("010-1234-5678")
-					.password("{noop}123")
 					.lastLoginTime(LocalDateTime.now())
-					.roleType(RoleType.ADMIN)
+					.roleType(RoleType.MEMBER)
 					.build()
 			);
 
 			// 테스트용 유저 계정 생성
 			User user2 = userRepository.save(User.builder()
 					.id("user2")
-					.password("123")
+					.password(bcryptPasswordEncoder.encode("123"))
 					.name("유저2")
 					.studentId("20150000")
 					.email("test@test.com")
 					.department(Department.software)
 					.dateOfBirth("960428")
 					.phoneNumber("010-1234-5678")
-					.password("{noop}123")
 					.lastLoginTime(LocalDateTime.now())
-					.roleType(RoleType.ADMIN)
+					.roleType(RoleType.GUEST)
 					.build()
 			);
 

@@ -4,6 +4,8 @@ import com.project.splug.domain.Comment;
 import com.project.splug.domain.Post;
 import com.project.splug.domain.dto.AccountSaveRequestDTO;
 import com.project.splug.domain.dto.CommentSaveRequestDTO;
+import com.project.splug.security.annotation.LoginUser;
+import com.project.splug.security.dto.SessionUser;
 import com.project.splug.service.AccountService;
 import com.project.splug.service.CommentService;
 import com.project.splug.service.ImageUploadService;
@@ -28,8 +30,8 @@ public class ApiController {
 
     // 게시글 저장
     @PostMapping("/api/v1/posts")
-    public Long save(@RequestBody Post post) {
-        return postService.save(post);
+    public Long save(@RequestBody Post post, @LoginUser SessionUser user) {
+        return postService.save(post, user);
     }
 
     // 게시글 수정
@@ -47,8 +49,8 @@ public class ApiController {
 
     // 댓글 생성
     @PostMapping("/api/v1/comment")
-    public Long saveComement(@RequestBody CommentSaveRequestDTO commentSaveRequestDTO){
-        return commentService.save(commentSaveRequestDTO);
+    public Long saveComement(@RequestBody CommentSaveRequestDTO commentSaveRequestDTO, @LoginUser SessionUser user){
+        return commentService.save(commentSaveRequestDTO, user);
     }
 
     // 댓글 수정

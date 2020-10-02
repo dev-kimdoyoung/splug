@@ -15,20 +15,7 @@
 	<body>
 
 		<!-- Header -->
-			<header id="header">
-				<h1><strong><a href="/" style="font-size: 30px;">SPLUG</a></strong></h1>
-				<nav id="nav">
-					<ul>
-						<li><a href="/">홈</a></li>
-						<li><a href="/notice">공지사항</a></li>
-						<li><a href="/free">자유게시판</a></li>
-						<li><a href="#">활동</a></li>
-						<li><a href="/account">회계</a></li>
-					</ul>
-				</nav>
-			</header>
-
-			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+		<header th:include="html/header.html"></header>
 
 		<!-- Main -->
 			<section id="main" class="wrapper">
@@ -41,18 +28,20 @@
 					<table>
 						<thead>
 						<tr>
-							<th class="col-2">글 번호</th>
-							<th class="col-6">제목</th>
-							<th class="col-2">작성자</th>
-							<th class="col-2">작성 날짜</th>
+							<th width="5%">글 번호</th>
+							<th width="50%">제목</th>
+							<th width="15%">작성자</th>
+							<th width="20%">작성 날짜</th>
+							<th width="10%">조회수</th>
 						</tr>
 						</thead>
 						<tbody>
 						<tr th:each="post : ${postList}">
 							<td th:text="${post.idx}"></td>
 							<td><a th:href="'/read?idx='+${post.idx}" th:text="${post.title}"></a></td>
-							<td th:text="testest"></td>
+							<td th:text="${post.user.name}"></td>
 							<td th:text="${#temporals.format(post.updatedDate,'yyyy-MM-dd HH:mm')}"></td>
+							<td th:text="${post.views}"></td>
 						</tr>
 						</tbody>
 					</table>

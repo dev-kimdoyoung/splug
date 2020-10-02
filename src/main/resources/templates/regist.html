@@ -14,20 +14,7 @@
 <body>
 
 <!-- Header -->
-<header id="header">
-    <h1><strong><a href="/" style="font-size: 30px;">SPLUG</a></strong></h1>
-    <nav id="nav">
-        <ul>
-            <li><a href="/">홈</a></li>
-            <li><a href="/notice">공지사항</a></li>
-            <li><a href="/board">자유게시판</a></li>
-            <li><a href="#">활동</a></li>
-            <li><a href="#">회계</a></li>
-        </ul>
-    </nav>
-</header>
-
-<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+<header th:include="html/header.html"></header>
 
 <!-- Main -->
 <section id="main" class="wrapper">

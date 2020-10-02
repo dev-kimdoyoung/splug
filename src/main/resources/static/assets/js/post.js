@@ -5,22 +5,29 @@ var post = {
             _this.save();
         });
 
-        $('#update').on('click', function () {
+        $('#post_update').on('click', function () {
             _this.update();
         });
 
-        $('#delete').on('click', function () {
+        $('#post_delete').on('click', function () {
             _this.delete();
         });
     },
 
     save : function () {
 
+        let userRoleType = $('#sessionUser_roleType').val();
+
         var data = {
             title: $('#title').val(),
             postType: $('#type').val(),
             content: CKEDITOR.instances.content.getData()
         };
+
+        if(userRoleType != "ADMIN" && data.postType == "notice"){
+            alert("공지사항은 관리자만 작성 가능합니다.");
+            return;
+        }
 
         if(data.postType == "--게시판--"){
             alert("게시판을 선택해주세요");
@@ -49,13 +56,34 @@ var post = {
         });
     },
     update : function () {
+
+        let userRoleType = $('#sessionUser_roleType').val();
+
         var data = {
             postType: $('#type').val(),
             title: $('#title').val(),
-            content: editor.getData()
+            content: CKEDITOR.instances.content.getData()
         };
 
-        var idx = $('#idx').val();
+        var idx = $('#post_idx').val();
+
+        if(userRoleType != "ADMIN" && data.postType == "notice"){
+            alert("공지사항은 관리자만 작성 가능합니다.");
+            return;
+        }
+
+        if(data.postType == "--게시판--"){
+            alert("게시판을 선택해주세요");
+            return;
+        }
+        else if(data.title.length < 1){
+            alert("제목을 입력해주세요");
+            return;
+        }
+        else if(data.content.length < 1){
+            alert("내용을 입력해주세요");
+            return;
+        }
 
         $.ajax({
             type: 'PUT',
@@ -72,8 +100,12 @@ var post = {
     },
 
     delete : function () {
-        var idx = $('#idx').val();
-        var postType = $('#type').val();
+        var idx = $('#post_idx').val();
+        var postType = $('#post_type').val();
+
+        if(!confirm("정말로 삭제하시겠습니까?")){
+            return;
+        }
 
         $.ajax({
             type: 'DELETE',

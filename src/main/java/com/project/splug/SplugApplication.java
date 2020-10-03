@@ -39,7 +39,6 @@ public class SplugApplication {
 					.password(bcryptPasswordEncoder.encode("123"))
 					.name("관리자")
 					.studentId("20150000")
-					.email("test@test.com")
 					.department(Department.computer)
 					.dateOfBirth("960428")
 					.phoneNumber("010-1234-5678")
@@ -54,7 +53,6 @@ public class SplugApplication {
 					.password(bcryptPasswordEncoder.encode("123"))
 					.name("유저1")
 					.studentId("20150000")
-					.email("test@test.com")
 					.department(Department.computer)
 					.dateOfBirth("960428")
 					.phoneNumber("010-1234-5678")
@@ -69,7 +67,6 @@ public class SplugApplication {
 					.password(bcryptPasswordEncoder.encode("123"))
 					.name("유저2")
 					.studentId("20150000")
-					.email("test@test.com")
 					.department(Department.software)
 					.dateOfBirth("960428")
 					.phoneNumber("010-1234-5678")
@@ -84,6 +81,7 @@ public class SplugApplication {
 					.content("OO월 OO일 OO시 정모입니다.")
 					.postType(PostType.notice)
 					.user(admin)
+					.commentCount(2)
 					.build()
 			);
 
@@ -93,8 +91,46 @@ public class SplugApplication {
 					.content("반갑습니다.")
 					.postType(PostType.free)
 					.user(admin)
+					.commentCount(0)
 					.build()
 			);
+
+			// 활동 게시판 게시글 생성
+			Post activity1 = postRepository.save(Post.builder()
+					.title("2020 4월 SPLUG 개강 총회")
+					.content("개강 총회를 진행하였습니다.")
+					.postType(PostType.activity)
+					.user(admin)
+					.thumbnail("images/no_img.gif")
+					.views(0)
+					.commentCount(0)
+					.build()
+			);
+
+			// 활동 게시판 게시글 생성
+			Post activity2 = postRepository.save(Post.builder()
+					.title("2020 6월 MT")
+					.content("MT를 가보았습니다.")
+					.postType(PostType.activity)
+					.user(admin)
+					.thumbnail("images/no_img.gif")
+					.views(0)
+					.commentCount(0)
+					.build()
+			);
+
+			// 활동 게시판 게시글 생성
+			Post activity3 = postRepository.save(Post.builder()
+					.title("2020 10월 축제 주점")
+					.content("주점입니다.")
+					.postType(PostType.activity)
+					.user(admin)
+					.thumbnail("images/no_img.gif")
+					.views(0)
+					.commentCount(0)
+					.build()
+			);
+
 
 			// 댓글 생성
 			Comment comment1 = commentRepository.save(Comment.builder()

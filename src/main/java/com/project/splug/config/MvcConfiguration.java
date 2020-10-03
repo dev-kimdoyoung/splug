@@ -14,7 +14,7 @@ public class MvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/templates/", "classpath:/static/");
+        registry
+        .addResourceHandler("/images/**").addResourceLocations("file:////Users/ggomak/Desktop/SplugServerImg/").setCachePeriod(0);
     }
 }

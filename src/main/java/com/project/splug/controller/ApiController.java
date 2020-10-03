@@ -1,15 +1,13 @@
 package com.project.splug.controller;
 
-import com.project.splug.domain.Comment;
 import com.project.splug.domain.Post;
+import com.project.splug.domain.User;
 import com.project.splug.domain.dto.AccountSaveRequestDTO;
 import com.project.splug.domain.dto.CommentSaveRequestDTO;
+import com.project.splug.domain.dto.UserRegistDTO;
 import com.project.splug.security.annotation.LoginUser;
 import com.project.splug.security.dto.SessionUser;
-import com.project.splug.service.AccountService;
-import com.project.splug.service.CommentService;
-import com.project.splug.service.ImageUploadService;
-import com.project.splug.service.PostService;
+import com.project.splug.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,6 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.desktop.UserSessionEvent;
 import java.io.IOException;
 
 @RestController
@@ -27,6 +26,7 @@ public class ApiController {
     private final CommentService commentService;
     private final AccountService accountService;
     private final ImageUploadService imageUploadService;
+    private final UserLoginService userLoginService;
 
     // 게시글 저장
     @PostMapping("/api/v1/posts")
@@ -78,8 +78,14 @@ public class ApiController {
         imageUploadService.imageUpload(request, response, multiFile, upload);
     }
 
+    // ckeditor 이미지 업로드 후 수정
     @GetMapping("/api/v1/imageChk")
     public void imageCheck(@RequestParam(value="uid") String uid, @RequestParam(value="fileName") String fileName, HttpServletRequest request, HttpServletResponse response) throws IOException{
         imageUploadService.ckSubmit(uid, fileName, request, response);
+    }
+
+    @PostMapping("/api/v1/regist")
+    public Long regist(@RequestBody UserRegistDTO userRegistDTO){
+        return userLoginService.regist(userRegistDTO);
     }
 }

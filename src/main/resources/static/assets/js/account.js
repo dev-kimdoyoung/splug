@@ -2,7 +2,7 @@ var account = {
     init : function () {
         var _this = this;
         $('#save').on('click', function () {
-            _this.save();
+            _this.accountSave();
         });
 
         $('#update').on('click', function () {
@@ -14,7 +14,7 @@ var account = {
         });
     },
 
-    save : function () {
+    accountSave : function () {
         var data = {
             date: $('#date').val(),
             usePlace: $('#usePlace').val(),

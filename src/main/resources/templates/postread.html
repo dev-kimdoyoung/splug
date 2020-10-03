@@ -31,23 +31,27 @@
 						<a th:onclick="'window.location.href=\'/postUpdate?idx=' + ${post.idx} + '\''" th:if="${sessionUser.id == post.user.id}">수정</a>
 						<a id="post_delete" th:if="${sessionUser.id == post.user.id}">삭제</a>
 					</div>
-					<table class="table">
-						<tr>
-							<th>제목</th>
-							<td><h1 th:text="${post?.title}"></h1></td>
+					<table class="table" style="min-height: 300px;">
+						<tr style="height: 30px;">
+							<th width="10%" style="vertical-align: middle; padding: 1.25em 0 1.25em 0.75em">제목</th>
+							<td width="90%" style="vertical-align: middle" ><h1 style="margin-bottom: 0px;" th:text="${post?.title}"></h1></td>
 						</tr>
 						<tr>
-							<th>내용</th>
-							<td style="height: 200px;"><p th:utext="${post?.content}"></p></td>
+							<th width="10%" style="vertical-align: middle; padding: 0 0 0 0.75em">내용</th>
+							<td width="90%" style="min-height: 200px;"><p th:utext="${post?.content}"></p></td>
 						</tr>
 					</table>
 
 					<h3>댓글</h3>
 					<table class="table" id="comment_table">
 						<tr>
-							<th width="10%" class="col-2">작성자</th>
-							<th width="70%" class="col-6">내용</th>
+							<th width="15%" class="col-2">작성자</th>
+							<th width="65%" class="col-6">내용</th>
 							<th width="20%" class="col-2"></th>
+						</tr>
+
+						<tr th:if="${post.commentCount == 0}">
+							<td colspan="3" style="text-align: center">등록된 댓글이 없습니다.</td>
 						</tr>
 
 						<tr th:each="comment : ${commentList}">

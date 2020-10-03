@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,15 +49,36 @@ public class PostService {
         return postRepository.findById(idx).orElse(new Post());
     }
 
+    public List<Post> findActivityPost(){
+        return postRepository.findAllByPostTypeOrderByIdxDesc(PostType.activity);
+    }
+
+    public String findImgSrc(Post posts){
+
+        try {
+            String hashName = posts.getContent().substring(posts.getContent().indexOf("uid=") + 4, posts.getContent().indexOf("&amp;"));
+
+            String fileName = posts.getContent().substring(posts.getContent().indexOf("&amp;fileName=") + 14);
+            fileName = fileName.substring(0, fileName.indexOf("\""));
+
+            return "images/post/" + hashName + "_" + fileName;
+        }
+        catch(Exception e){
+            return "images/no_img.gif";
+        }
+    }
+
     // 게시글 저장
     @Transactional
     public Long save(Post post, SessionUser sessionUser) {
         User user = userRepository.findById(sessionUser.getId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + sessionUser.getId()));
 
+
         post.setUser(user);
         post.setCreatedDate(LocalDateTime.now());
         post.setUpdatedDate(LocalDateTime.now());
+        post.setThumbnail(findImgSrc(post));
 
         return postRepository.save(post).getIdx();
     }
@@ -85,6 +107,6 @@ public class PostService {
     // 조회수 업데이트
     @Transactional
     public void updatePostViews(Post post){
-        post.updatePostViews(post.getViews());
+        post.updatePostViews();
     }
 }

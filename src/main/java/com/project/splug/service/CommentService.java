@@ -22,6 +22,7 @@ public class CommentService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
 
+    @Transactional
     public List<Comment> findCommentByPost(Post post){
         return commentRepository.findAllByPost(post);
     }
@@ -40,6 +41,8 @@ public class CommentService {
         comment.setUser(user);
         comment.setContent(comment.getContent().replace("\r\n", "<br>"));
         comment.setContent(comment.getContent().replace("\n", "<br>"));
+        post.updateCommentCount();
+
         return commentRepository.save(comment).getIdx();
     }
 

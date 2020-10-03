@@ -27,7 +27,7 @@ public class Post implements Serializable {
     @Column
     private String title;
 
-    @Column
+    @Column(length = 30000)
     private String content;
 
     @Column
@@ -46,8 +46,14 @@ public class Post implements Serializable {
     @Column
     private int views;
 
+    @Column
+    private String thumbnail;
+
+    @Column
+    private int commentCount;
+
     @Builder
-    public Post(String title, String content, PostType postType, User user, int views){
+    public Post(String title, String content, PostType postType, User user, int views, String thumbnail, int commentCount){
         this.title = title;
         this.content = content;
         this.postType = postType;
@@ -55,6 +61,8 @@ public class Post implements Serializable {
         this.updatedDate = LocalDateTime.now();
         this.user = user;
         this.views = views;
+        this.thumbnail = thumbnail;
+        this.commentCount = commentCount;
     }
 
     // 게시글 Update
@@ -66,7 +74,12 @@ public class Post implements Serializable {
     }
 
     // 조회수 Update
-    public void updatePostViews(int views){
+    public void updatePostViews(){
         this.views = views + 1;
+    }
+
+    // 댓글 수 Update
+    public void updateCommentCount(){
+        this.commentCount = commentCount + 1;
     }
 }

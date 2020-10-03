@@ -35,25 +35,33 @@
 								<option>--게시판--</option>
 								<option th:value="notice" th:selected="${post?.postType?.name() == 'notice'}">공지사항</option>
 								<option th:value="free" th:selected="${post?.postType?.name() == 'free'}">자유게시판</option>
+								<option th:value="activity" th:selected="${post?.postType?.name() == 'activity'}">활동게시판</option>
 							</select>
 						</div>
 						<div class="mb-3">
 							<label for="title">제목</label>
-							<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요" th:value="${post?.title}">
+							<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요" maxlength="40" th:value="${post?.title}">
 						</div>
 						<div class="mb-6">
 							<label for="content">내용</label>
-							<textarea style="color: black" class="form-control" rows="10" name="content" id="content" placeholder="내용을 입력해 주세요" th:utext="${post?.content}"></textarea>
+							<textarea class="form-control" rows="10" name="content" id="content" placeholder="내용을 입력해 주세요" th:utext="${post?.content}"></textarea>
 							<script>
-								CKEDITOR.replace('content',{filebrowserUploadUrl:'/api/v1/imageUpload'});
+								CKEDITOR.replace('content', {
+									extraPlugins: 'image2, uploadimage, imageresize',
+
+									filebrowserImageUploadUrl: '/api/v1/imageUpload?command=QuickUpload&type=Images?max=600',
+									removeDialogTabs: 'image:advanced; link:advanced; maximize',
+
+									height: 500,
+								});
 							</script>
 						</div>
 					</div>
 
 					<div style="margin-top: 30px;">
 						<button style="float: left" class="btn" onclick="history.back()">목록으로</button>
-						<button th:if="!${post?.idx}" style="float: right" type="button" class="btn btn-primary" id="save">글 쓰기</button>
-						<button th:if="${post?.idx}" style="float: right" type="button" class="btn btn-primary" id="post_update">완료</button>
+						<button th:if="!${post?.idx}" style="float: right" type="button" id="save">글 쓰기</button>
+						<button th:if="${post?.idx}" style="float: right" type="button" id="post_update">완료</button>
 					</div>
 
 				</div>

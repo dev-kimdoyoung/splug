@@ -48,7 +48,7 @@
 					</table>
 
 					<div style="float: right;">
-						<button class="button" style="vertical-align: center" onclick="location.href='/addAccount'">추가</button>
+						<button th:if="${sessionUser.roleType.name() == 'ADMIN'}" class="button" style="vertical-align: center" onclick="location.href='/addAccount'">추가</button>
 					</div>
 				</div>
 			</section>

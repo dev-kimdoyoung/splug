@@ -28,56 +28,51 @@
         <div class="row_group">
             <div class="join_row">
                 <h3 class="join_title" style="margin: 20px 0px 5px 0px;">아이디</h3>
-                <input type="text" id="id" name="id" class="int" title="ID" maxlength="20">
+                <input type="text" id="id" name="id" class="int" title="ID" maxlength="20" required>
             </div>
 
             <div class="join_row">
                 <h3 class="join_title" style="margin: 20px 0px 5px 0px;">비밀번호</h3>
-                <input type="password" id="pswd1" name="pswd1" class="int" title="비밀번호 입력" aria-describedby="pswd1Msg" maxlength="20"></span></span>
+                <input type="password" id="pswd1" name="pswd1" class="int" title="비밀번호 입력" aria-describedby="pswd1Msg" maxlength="20" required>
 
                 <h3 class="join_title" style="margin: 20px 0px 5px 0px;">비밀번호 재확인</h3>
-                <input type="password" id="pswd2" name="pswd2" class="int" title="비밀번호 재확인 입력" aria-describedby="pswd2Blind" maxlength="20">
+                <input type="password" id="pswd2" name="pswd2" class="int" title="비밀번호 재확인 입력" aria-describedby="pswd2Blind" maxlength="20" required>
             </div>
 
             <div class="join_row">
                 <h3 class="join_title" style="margin: 20px 0px 5px 0px;">학번</h3>
-                <input type="text" id="studentId" name="studentId" class="int" title="학번" maxlength="20"></span>
+                <input type="text" id="studentId" name="studentId" class="int" title="학번" maxlength="20" required>
             </div>
 
             <div class="join_row">
                 <h3 class="join_title" style="margin: 20px 0px 5px 0px;">이름</h3>
-                <input type="text" id="name" name="name" title="이름" class="int" maxlength="40">
+                <input type="text" id="name" name="name" title="이름" class="int" maxlength="20" required>
             </div>
 
             <div class="join_row">
                 <h3 class="join_title" style="margin: 20px 0px 5px 0px;">생년월일</h3>
-                <input type="text" id="birthday" name="birthday" title="생년월일" class="int" maxlength="7" placeholder="ex) 960428">
-            </div>
-
-            <div class="join_row">
-                <h3 class="join_title" style="margin: 20px 0px 5px 0px;">이메일</h3>
-                <input type="text" id="email" name="email" title="이메일" class="int" maxlength="100" placeholder="ex) example@example.com">
+                <input type="text" id="birthday" name="birthday" title="생년월일" class="int" maxlength="7" placeholder="ex) 960428" required>
             </div>
 
             <div class="join_row">
                 <h3 class="join_title" style="margin: 20px 0px 5px 0px;">학과</h3>
-                <select name="category" id="category">
+                <select name="department" id="department">
                     <option value>-- 학과 --</option>
-                    <option value="1">컴퓨터학부</option>
-                    <option value="2">소프트웨어학부</option>
-                    <option value="3">기타</option>
+                    <option value="computer">컴퓨터학부</option>
+                    <option value="software">소프트웨어학부</option>
+                    <option value="other">기타</option>
                 </select>
             </div>
 
             <div class="join_row">
                 <h3 class="join_title" style="margin: 20px 0px 5px 0px;">핸드폰 번호</h3>
-                <input type="text" id="phoneNumber" name="phoneNumber" title="핸드폰 번호" class="int" maxlength="13" placeholder="ex) 010-1234-5678">
+                <input type="text" id="phoneNumber" name="phoneNumber" title="핸드폰 번호" class="int" maxlength="13" placeholder="ex) 010-1234-5678" required>
             </div>
         </div>
 
         <div class="row_group" style="width: 100%; margin-top: 40px;">
-            <a href="#" class="button alt" style="margin-left: 2.5%; width: 45%;">취소</a>
-            <a href="#" class="button special" style="margin-left: 4%; width: 45%;">가입요청</a>
+            <button style="margin-left: 2.5%; width: 45%;" onclick="location.href='/'" class="button alt">취소</button>
+            <button style="margin-left: 2.5%; width: 45%;" id="regist" class="button special">가입하기</button>
         </div>
 
     </div>
@@ -104,6 +99,7 @@
 <script src="assets/js/skel.min.js"></script>
 <script src="assets/js/util.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/regist.js"></script>
 
 </body>
 </html>

@@ -33,9 +33,6 @@ public class User implements Serializable {
     @Column
     private String studentId;
 
-    @Column
-    private String email;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Department department;
@@ -55,11 +52,10 @@ public class User implements Serializable {
 
 
     @Builder
-    public User(String id, String name, String studentId, String email, Department department, String dateOfBirth, String phoneNumber, String password, LocalDateTime lastLoginTime, RoleType roleType){
+    public User(String id, String name, String studentId, Department department, String dateOfBirth, String phoneNumber, String password, LocalDateTime lastLoginTime, RoleType roleType){
         this.id = id;
         this.name = name;
         this.studentId = studentId;
-        this.email = email;
         this.department = department;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;

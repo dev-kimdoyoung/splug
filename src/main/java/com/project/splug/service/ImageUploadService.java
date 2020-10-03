@@ -1,9 +1,7 @@
 package com.project.splug.service;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -17,7 +15,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ImageUploadService {
 
-    private String fileDir = "/Users/ggomak/Desktop/splug/src/main/resources/static/images/post/";
+    private String fileDir = "/Users/ggomak/Desktop/SplugServerImg/post/";
 
     public void imageUpload(HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest multiFile, MultipartFile upload){
         UUID uid = UUID.randomUUID();
@@ -30,7 +28,6 @@ public class ImageUploadService {
         response.setContentType("text/html;charset=utf-8");
 
         try{
-
             //파일 이름 가져오기
             String fileName = upload.getOriginalFilename();
             byte[] bytes = upload.getBytes();
@@ -55,6 +52,9 @@ public class ImageUploadService {
 
             String callback = request.getParameter("CKEditorFuncNum");
             printWriter = response.getWriter();
+
+            fileName.replace(" ", "_");
+
             String fileUrl = "/api/v1/imageChk?uid=" + uid + "&fileName=" + fileName;  // 작성화면
 
             // 업로드시 메시지 출력

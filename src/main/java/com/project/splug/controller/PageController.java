@@ -10,10 +10,12 @@ import com.project.splug.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -84,6 +86,13 @@ public class PageController {
         return "regist";
     }
 
+    // 활동 게시판
+    @GetMapping("/activity")
+    public String activity(Model model, @LoginUser SessionUser user){
+        model.addAttribute("postList", postService.findActivityPost());
+        return "activity";
+    }
+
     // 회계
     @GetMapping("/account")
     public String account(Model model, @LoginUser SessionUser user){
@@ -92,6 +101,7 @@ public class PageController {
         return "accounting";
     }
 
+    // 회계 내역 추가 폼
     @GetMapping("/addAccount")
     public String addAccount(Model model, @LoginUser SessionUser user){
         model.addAttribute("sessionUser", user);

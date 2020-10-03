@@ -2,7 +2,8 @@ package com.project.splug.domain.enums;
 
 public enum PostType {
     notice("공지사항"),
-    free("자유게시판");
+    free("자유게시판"),
+    activity("활동");
 
     private String value;
 

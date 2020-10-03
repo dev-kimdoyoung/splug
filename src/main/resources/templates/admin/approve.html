@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<!--
+	Spatial by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Splug</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/page.css" />
+	</head>
+	<body>
+
+		<!-- Header -->
+		<header th:include="html/header.html"></header>
+
+		<!-- Main -->
+			<section id="main" class="wrapper">
+				<div class="container">
+
+					<header class="major special" style="margin-bottom: 2em;">
+						<h2><a href="/notice">가입 승인</a></h2>
+					</header>
+
+					<table>
+						<thead>
+						<tr>
+							<th width="5%">#</th>
+							<th width="50%">제목</th>
+							<th width="15%">작성자</th>
+							<th width="20%">작성 날짜</th>
+							<th width="10%">조회수</th>
+						</tr>
+						</thead>
+						<tbody>
+
+						<tr th:each="post : ${postList}">
+							<td th:text="${post.idx}"></td>
+							<td><a th:href="'/read?idx='+${post.idx}" th:text="${post.title}"></a></td>
+							<td th:text="${post.user.name}"></td>
+							<td th:text="${#temporals.format(post.updatedDate,'yyyy-MM-dd HH:mm')}"></td>
+							<td th:text="${post.views}"></td>
+						</tr>
+						</tbody>
+					</table>
+
+					<!-- Pagination -->
+					<div class="page">
+						<ul class="pagination" th:with="startNumber=${T(Math).floor(postList.number/10)}*10+1, endNumber=(${postList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${postList.totalPages}">
+							<li><a aria-label="Previous" href="/notice?page=1">&laquo;</a></li>
+							<li th:style="${postList.first} ? 'display:none'">
+								<a th:href="@{/notice(page=${postList.number})}">&lsaquo;</a>
+							</li>
+							<li th:each="page :${#numbers.sequence(startNumber, endNumber)}" th:class="(${page} == ${postList.number}+1) ? 'active'">
+								<a th:href="@{/notice(page=${page})}" th:text="${page}"><span class="sr-only"></span></a>
+							</li>
+							<li th:style="${postList.last} ? 'display:none'">
+								<a th:href="@{/notice(page=${postList.number}+2)}">&rsaquo;</a>
+							</li>
+							<li><a aria-label="Next" th:href="@{/notice(page=${postList.totalPages})}">&raquo;</a></li>
+						</ul>
+
+						<div style="float: right;">
+							<button th:if="${sessionUser.roleType.name() == 'ADMIN'}" class="button" style="vertical-align: center" onclick="location.href='/post'">글 쓰기</button>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="container">
+					<ul class="icons">
+						<li><a href="#" class="icon fa-facebook"></a></li>
+						<li><a href="#" class="icon fa-twitter"></a></li>
+						<li><a href="#" class="icon fa-instagram"></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Untitled</li>
+						<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+						<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

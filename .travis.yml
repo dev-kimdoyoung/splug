@@ -20,7 +20,9 @@ cache:
 
 # 브랜치에 푸시되었을 때 수행하는 명령어
 # 프로젝트 빌드 작업 : 프로젝트 내부에 위치한 gradlew를 사용
-script: "./gradlew clean assemble build"
+script:
+  - "sudo chmod +x ./gradlew"
+  - "./gradlew clean assemble build"
 
 # Travis CI 수행 완료 시 지정된 이메일로 완료 메일 발송
 notifications:

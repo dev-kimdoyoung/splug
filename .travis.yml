@@ -22,6 +22,7 @@ cache:
 # 프로젝트 빌드 작업 : 프로젝트 내부에 위치한 gradlew를 사용
 script: "./gradlew clean assemble build"
 
+# gradlew 파일에 실행 권한 추가
 before_install:
   - chmod +x gradlew
 
@@ -33,3 +34,5 @@ notifications:
       - kia0097@naver.com
       - do0ob1124@gmail.com
       - 201703ska@naver.com
+    on_success: never
+    on_failure: always

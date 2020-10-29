@@ -1,6 +1,9 @@
+# 빌드 구동환경 설정
+# xenial: Ubuntu 16:04 LTS
 language: java
-jdk:
-  - openjdk11
+jdk: openjdk11
+dist: xenial
+os: linux
 
 branches:
   only:

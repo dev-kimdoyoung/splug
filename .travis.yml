@@ -1,0 +1,57 @@
+# 빌드 구동환경 설정
+# xenial: Ubuntu 16:04 LTS
+language: java
+jdk: openjdk11
+dist: xenial
+os: linux
+
+branches:
+  only:
+    - master
+    - develop
+    # feature 서브그룹 브랜치를 정규 표현식으로 정의 ex) feature/5, feature/1
+    - /^(feature)\/\w*$/
+
+# gradle을 통해 의존성을 받게 되면 이를 해당 디렉토리에 캐시 (의존성은 최초 1회만 받도록 설정하여 반복 작업을 사전에 차단)
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+
+# 브랜치에 푸시되었을 때 수행하는 명령어
+# 프로젝트 빌드 작업 : 프로젝트 내부에 위치한 gradlew를 사용
+script: "./gradlew clean assemble build"
+
+# gradlew 파일에 실행 권한 추가
+before_install:
+  - chmod +x gradlew
+
+# deploy 명령어가 실행되기 전 수행될 작업
+before_deploy:
+  - zip -r splug-springboot-webservice
+  - mkdir -p deploy
+  - mv splug-springboot-webservice.zip deploy/splug-springboot-webservice.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY    # 환경변수: Travis CI Reo Setting에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY    # 환경변수: Travis CI Reo Setting에 설정된 값
+    bucket: splug-springboot-build  # S3 버킷 명: zip 파일이 저장될 버킷
+    region: ap-northeast-2
+    skip_cleanup: true  # provider에 파일 배포 시, Travis CI가 빌드 결과물을 삭제하지 않도록 설정
+    acl: private    # zip 파일 접근 권한: private
+    local_dir: deploy   # 해당 위치의 파일들만 S3로 전송
+    wait-until-deployed: true   # 배포가 완료될 때까지 대기
+    on:
+      branch: develop   # develop 브랜치에 push할 경우 배포 결과물을 S3에 전달하도록 지정
+
+# Travis CI 수행 완료 시 지정된 이메일로 완료 메일 발송
+notifications:
+  email:
+    recipients:
+      - rlaehdud4992@naver.com
+      - kia0097@naver.com
+      - do0ob1124@gmail.com
+      - 201703ska@naver.com
+    on_success: never
+    on_failure: always

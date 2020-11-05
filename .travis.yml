@@ -41,19 +41,20 @@ deploy:
     skip_cleanup: true  # provider에 파일 배포 시, Travis CI가 빌드 결과물을 삭제하지 않도록 설정
     acl: private    # zip 파일 접근 권한: private
     local_dir: deploy   # 해당 위치의 파일들만 S3로 전송
-    wait-until-deployed: true   # 배포가 완료될 때까지 대기
+    wait_until_deployed: true   # 배포가 완료될 때까지 대기
     on:
       branch: develop   # develop 브랜치에 push할 경우 배포 결과물을 S3에 전달하도록 지정
+
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
-    bucket: splug-springboot-build  # S3 버킷 명
+    bucket: splug-springboot-build
+    region: ap-northeast-2
     key: splug-springboot-webservice.zip  # 전달할 압축 파일 명
     bundle_type: zip  # 압축 파일의 확장자
     application: splug-springboot-webservice # AWS CodeDeploy에 등록된 애플리케이션
     deployment_group: splug-springboot-webservice-group # AWS CodeDeploy에 등록된 배포 그룹
-    region: ap-northeast-2
-    wait-until-deployed: true
+    wait_until_deployed: true
 
 # Travis CI 수행 완료 시 지정된 이메일로 완료 메일 발송
 notifications:

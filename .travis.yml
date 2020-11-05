@@ -28,7 +28,7 @@ before_install:
 
 # deploy 명령어가 실행되기 전 수행될 작업
 before_deploy:
-  - zip -r splug-springboot-webservice
+  - zip -r splug-springboot-webservice *
   - mkdir -p deploy
   - mv splug-springboot-webservice.zip deploy/splug-springboot-webservice.zip
 
@@ -61,7 +61,6 @@ notifications:
     recipients:
       - rlaehdud4992@naver.com
       - kia0097@naver.com
-      - do0ob1124@gmail.com
       - 201703ska@naver.com
     on_success: never
     on_failure: always

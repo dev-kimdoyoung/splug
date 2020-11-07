@@ -5,7 +5,7 @@ files:
     destination: /home/ubuntu/app/zip/ # source 에서 지정된 파일을 받을 위치
     overwrite: yes  # 기존에 있는 파일에 덮어쓰기
 
-# CodeDeploy에서 EC2 서버로 넘겨준 파일들이 모두 ubnutu 권한을 가지도록 설정
+# CodeDeploy에서 EC2 서버로 넘겨준 파일들이 모두 ubuntu 권한을 가지도록 설정
 permissions:
   - object: /
     pattern: "**"

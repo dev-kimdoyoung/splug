@@ -28,10 +28,9 @@ before_install:
 
 # deploy 명령어가 실행되기 전 수행될 작업
 before_deploy:
-  - zip -r splug-springboot-webservice *
+  - zip -r springboot-webservice *
   - mkdir -p deploy
-  - mv splug-springboot-webservice.zip deploy/splug-springboot-webservice.zip
-
+  - mv springboot-webservice.zip deploy/springboot-webservice.zip
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY    # 환경변수: Travis CI Reo Setting에 설정된 값

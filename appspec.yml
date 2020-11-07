@@ -15,6 +15,6 @@ permissions:
 # CodeDeploy 배포 단계에서 실행할 명령어 지정
 hooks:
   ApplicationStart:   # deploy.sh를 ubuntu 권한으로 실행
-    - location: deploy.sh
+    - location: /home/ubuntu/app/zip/deploy.sh
       timeout: 60     # 스크립트가 60초 이상 수행될 경우 실패
       runas: cicd

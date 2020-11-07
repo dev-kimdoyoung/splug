@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 # 스크립트 내 변수 설정
 REPOSITORY=/home/ubuntu/app/

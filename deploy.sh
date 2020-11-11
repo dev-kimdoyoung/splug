@@ -20,7 +20,7 @@ if [ -z "$CURRENT_PID" ]; then
 else
   # 현재 실행 중인 프로세스를 정상적인 방법 (15)으로 종료
   echo "> kill -15 $CURRENT_PID"
-  kill -15 $CURRENT_PID
+  sudo kill -15 $CURRENT_PID
 
   # 5초 동안 대기 (wait)
   sleep 5

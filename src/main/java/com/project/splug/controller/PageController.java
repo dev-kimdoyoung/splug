@@ -107,4 +107,9 @@ public class PageController {
         model.addAttribute("sessionUser", user);
         return "addAccount";
     }
+
+    @GetMapping("/test")
+    public String getTestPage() {
+        return "test";
+    }
 }

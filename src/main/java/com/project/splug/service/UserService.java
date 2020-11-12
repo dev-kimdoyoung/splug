@@ -1,12 +1,18 @@
 package com.project.splug.service;
 
+import com.project.splug.domain.RegistWaitingUser;
 import com.project.splug.domain.User;
 import com.project.splug.domain.UserAttributes;
 import com.project.splug.domain.dto.UserRegistDTO;
 import com.project.splug.domain.enums.RoleType;
+import com.project.splug.repository.RegistWaitingUserRepository;
 import com.project.splug.repository.UserRepository;
 import com.project.splug.security.dto.SessionUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +22,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +29,10 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserLoginService implements UserDetailsService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final RegistWaitingUserRepository registWaitingUserRepository;
     private final HttpSession httpSession;
 
     @Override
@@ -53,11 +59,11 @@ public class UserLoginService implements UserDetailsService {
     }
 
     @Transactional
-    public Long regist(UserRegistDTO userRegistDTO) {
+    public Long requestRegist(UserRegistDTO userRegistDTO) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         userRegistDTO.setPassword(encoder.encode(userRegistDTO.getPassword()));
 
-        return userRepository.save(User.builder()
+        return registWaitingUserRepository.save(RegistWaitingUser.builder()
                 .id(userRegistDTO.getId())
                 .password(userRegistDTO.getPassword())
                 .name(userRegistDTO.getName())
@@ -65,7 +71,43 @@ public class UserLoginService implements UserDetailsService {
                 .dateOfBirth(userRegistDTO.getDateOfBirth())
                 .department(userRegistDTO.getDepartment())
                 .phoneNumber(userRegistDTO.getPhoneNumber())
-                .roleType(RoleType.GUEST)
                 .build()).getIdx();
+    }
+
+    @Transactional
+    public Page<RegistWaitingUser> getRegistWaitingUserList(Pageable pageable){
+        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize(), Sort.by("idx").descending());
+
+        return registWaitingUserRepository.findAll(pageable);
+    }
+
+    @Transactional
+    public Long authorizeUser(Long idx){
+        RegistWaitingUser guest = registWaitingUserRepository.findById(idx).orElseThrow();
+        registWaitingUserRepository.deleteById(idx);
+
+        return userRepository.save(User.builder()
+                .id(guest.getId())
+                .studentId(guest.getStudentId())
+                .department(guest.getDepartment())
+                .dateOfBirth(guest.getDateOfBirth())
+                .password(guest.getPassword())
+                .name(guest.getName())
+                .phoneNumber(guest.getPhoneNumber())
+                .roleType(RoleType.GUEST)
+                .build()
+        ).getIdx();
+    }
+
+    @Transactional
+    public void unauthorizeUser(Long idx){
+        registWaitingUserRepository.deleteById(idx);
+    }
+
+    @Transactional
+    public Page<User> getUserList(Pageable pageable){
+        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize(), Sort.by("idx").descending());
+
+        return userRepository.findAll(pageable);
     }
 }

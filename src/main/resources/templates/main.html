@@ -18,6 +18,8 @@
 			<h1><strong><a href="/" style="font-size: 40px;">SPLUG</a></strong></h1>
 			<nav id="nav">
 				<ul>
+					<li th:if="${sessionUser != null && sessionUser.roleType.name() == 'ADMIN'}"><a href="/authorizeUser">가입 승인</a></li>
+					<li th:if="${sessionUser != null && sessionUser.roleType.name() == 'ADMIN'}"><a href="/manageUser">회원 관리</a></li>
 					<li><a href="/">홈</a></li>
 					<li><a href="/notice">공지사항</a></li>
 					<li><a href="/free">자유게시판</a></li>

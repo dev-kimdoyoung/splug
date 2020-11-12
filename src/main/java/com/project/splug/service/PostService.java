@@ -1,13 +1,8 @@
 package com.project.splug.service;
 
-import com.project.splug.domain.Account;
-import com.project.splug.domain.Comment;
 import com.project.splug.domain.Post;
 import com.project.splug.domain.User;
-import com.project.splug.domain.dto.AccountSaveRequestDTO;
-import com.project.splug.domain.dto.CommentSaveRequestDTO;
 import com.project.splug.domain.enums.PostType;
-import com.project.splug.repository.AccountRepository;
 import com.project.splug.repository.CommentRepository;
 import com.project.splug.repository.PostRepository;
 import com.project.splug.repository.UserRepository;
@@ -19,16 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

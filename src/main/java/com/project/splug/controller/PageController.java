@@ -7,10 +7,10 @@ import com.project.splug.security.annotation.LoginUser;
 import com.project.splug.service.AccountService;
 import com.project.splug.service.CommentService;
 import com.project.splug.service.PostService;
+import com.project.splug.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +24,7 @@ public class PageController {
     private final PostService postService;
     private final CommentService commentService;
     private final AccountService accountService;
+    private final UserService userService;
 
     // 메인페이지
     @GetMapping("/")
@@ -111,5 +112,19 @@ public class PageController {
     @GetMapping("/test")
     public String getTestPage() {
         return "test";
+    }
+
+    @GetMapping("/authorizeUser")
+    public String authorizePage(@PageableDefault Pageable pageable, Model model, @LoginUser SessionUser user){
+        model.addAttribute("sessionUser", user);
+        model.addAttribute("userList", userService.getRegistWaitingUserList(pageable));
+        return "authorizeUser";
+    }
+
+    @GetMapping("/manageUser")
+    public String managementPage(@PageableDefault Pageable pageable, Model model, @LoginUser SessionUser user){
+        model.addAttribute("sessionUser", user);
+        model.addAttribute("userList", userService.getUserList(pageable));
+        return "manageUser";
     }
 }

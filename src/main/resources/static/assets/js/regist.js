@@ -19,7 +19,7 @@ var regist = {
 
         $.ajax({
             type: 'POST',
-            url: '/api/v1/regist',
+            url: '/api/v1/requestRegist',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
@@ -33,3 +33,30 @@ var regist = {
 };
 
 regist.init();
+
+
+function authorize(idx){
+
+    $.ajax({
+        type: 'POST',
+        url: '/api/v1/authorize/' + idx
+    }).done(function() {
+        alert("가입이 승인되었습니다.");
+        window.location.reload();
+    }).fail(function (error) {
+        alert(JSON.stringify(error));
+    });
+}
+
+function unauthorize(idx){
+
+    $.ajax({
+        type: 'DELETE',
+        url: '/api/v1/unauthorize/' + idx
+    }).done(function() {
+        alert("가입이 거절되었습니다.");
+        window.location.reload();
+    }).fail(function (error) {
+        alert(JSON.stringify(error));
+    });
+}

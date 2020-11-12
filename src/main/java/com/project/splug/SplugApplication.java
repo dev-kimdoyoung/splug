@@ -1,16 +1,10 @@
 package com.project.splug;
 
-import com.project.splug.domain.Account;
-import com.project.splug.domain.Comment;
-import com.project.splug.domain.Post;
-import com.project.splug.domain.User;
+import com.project.splug.domain.*;
 import com.project.splug.domain.enums.Department;
 import com.project.splug.domain.enums.PostType;
 import com.project.splug.domain.enums.RoleType;
-import com.project.splug.repository.AccountRepository;
-import com.project.splug.repository.CommentRepository;
-import com.project.splug.repository.PostRepository;
-import com.project.splug.repository.UserRepository;
+import com.project.splug.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,8 +24,30 @@ public class SplugApplication {
 
 	// 테스트용 더미 데이터 생성
 	@Bean
-	public CommandLineRunner runner(PostRepository postRepository, UserRepository userRepository, CommentRepository commentRepository, AccountRepository accountRepository){
+	public CommandLineRunner runner(PostRepository postRepository, UserRepository userRepository, CommentRepository commentRepository, AccountRepository accountRepository, RegistWaitingUserRepository registWaitingUserRepository){
 		return args -> {
+
+			registWaitingUserRepository.save(RegistWaitingUser.builder()
+					.id("123")
+					.password(bcryptPasswordEncoder.encode("123"))
+					.name("test1")
+					.studentId("12312312")
+					.department(Department.computer)
+					.dateOfBirth("000000")
+					.phoneNumber("123-1234-1234")
+					.build()
+			);
+
+			registWaitingUserRepository.save(RegistWaitingUser.builder()
+					.id("321")
+					.password(bcryptPasswordEncoder.encode("123"))
+					.name("test2")
+					.studentId("32132132")
+					.department(Department.computer)
+					.dateOfBirth("111111")
+					.phoneNumber("123-1234-1234")
+					.build()
+			);
 
 			// 테스트용 관리자 계정 생성
 			User admin = userRepository.save(User.builder()

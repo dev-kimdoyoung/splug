@@ -1,7 +1,7 @@
 package com.project.splug.config;
 
 import com.project.splug.domain.enums.RoleType;
-import com.project.splug.service.UserLoginService;
+import com.project.splug.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +18,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserLoginService userLoginService;
+    private final UserService userService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/", "/assets/**", "/images/**", "/h2-console/**", "/profile", "/regist", "/api/v1/regist", "/login").permitAll()
+                    .antMatchers("/", "/assets/**", "/images/**", "/h2-console/**", "/profile", "/regist", "/api/v1/requestRegist", "/login").permitAll()
                     .antMatchers("/api/v1/**", "/notice", "/free", "/activity", "/account").hasAnyRole(RoleType.ADMIN.name(), RoleType.MEMBER.name(), RoleType.PREMEMBER.name(), RoleType.GRADUATE.name())
                     .anyRequest().authenticated()
                 .and()
@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userLoginService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
     @Bean

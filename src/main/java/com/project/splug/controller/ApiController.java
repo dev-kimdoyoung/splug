@@ -1,7 +1,6 @@
 package com.project.splug.controller;
 
 import com.project.splug.domain.Post;
-import com.project.splug.domain.User;
 import com.project.splug.domain.dto.AccountSaveRequestDTO;
 import com.project.splug.domain.dto.CommentSaveRequestDTO;
 import com.project.splug.domain.dto.UserRegistDTO;
@@ -15,7 +14,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.desktop.UserSessionEvent;
 import java.io.IOException;
 
 @RestController
@@ -26,7 +24,7 @@ public class ApiController {
     private final CommentService commentService;
     private final AccountService accountService;
     private final ImageUploadService imageUploadService;
-    private final UserLoginService userLoginService;
+    private final UserService userService;
 
     // 게시글 저장
     @PostMapping("/api/v1/posts")
@@ -84,8 +82,19 @@ public class ApiController {
         imageUploadService.ckSubmit(uid, fileName, request, response);
     }
 
-    @PostMapping("/api/v1/regist")
+    @PostMapping("/api/v1/requestRegist")
     public Long regist(@RequestBody UserRegistDTO userRegistDTO){
-        return userLoginService.regist(userRegistDTO);
+        return userService.requestRegist(userRegistDTO);
+    }
+
+    @PostMapping("/api/v1/authorize/{idx}")
+    public Long authorizeUser(@PathVariable Long idx){
+        return userService.authorizeUser(idx);
+    }
+
+    @DeleteMapping("/api/v1/unauthorize/{idx}")
+    public Long unauthorizeUser(@PathVariable Long idx){
+        userService.unauthorizeUser(idx);
+        return idx;
     }
 }

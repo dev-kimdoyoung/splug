@@ -40,7 +40,7 @@ public class Post implements Serializable {
     @Column
     private LocalDateTime updatedDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     private User user;
 
     @Column

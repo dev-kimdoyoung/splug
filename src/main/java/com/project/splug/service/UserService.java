@@ -1,10 +1,13 @@
 package com.project.splug.service;
 
+import com.project.splug.domain.Comment;
 import com.project.splug.domain.RegistWaitingUser;
 import com.project.splug.domain.User;
 import com.project.splug.domain.UserAttributes;
 import com.project.splug.domain.dto.UserRegistDTO;
 import com.project.splug.domain.enums.RoleType;
+import com.project.splug.repository.CommentRepository;
+import com.project.splug.repository.PostRepository;
 import com.project.splug.repository.RegistWaitingUserRepository;
 import com.project.splug.repository.UserRepository;
 import com.project.splug.security.dto.SessionUser;
@@ -31,6 +34,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
+    private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
     private final UserRepository userRepository;
     private final RegistWaitingUserRepository registWaitingUserRepository;
     private final HttpSession httpSession;
@@ -109,5 +114,20 @@ public class UserService implements UserDetailsService {
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize(), Sort.by("idx").descending());
 
         return userRepository.findAll(pageable);
+    }
+
+    @Transactional
+    public Long roleChange(Long idx, RoleType roleType){
+        User user = userRepository.findById(idx).orElseThrow();
+        user.updateRole(roleType);
+        return idx;
+    }
+
+    @Transactional
+    public Long signout(Long idx){
+        User user = userRepository.findById(idx).orElseThrow();
+        commentRepository.deleteAllByUser(user);
+        userRepository.deleteById(idx);
+        return idx;
     }
 }

@@ -1,7 +1,7 @@
-var regist = {
+var user = {
     init : function () {
         var _this = this;
-        $('#regist').on('click', function () {
+        $('#user').on('click', function () {
             _this.regist();
         });
     },
@@ -32,8 +32,7 @@ var regist = {
     }
 };
 
-regist.init();
-
+user.init();
 
 function authorize(idx){
 
@@ -59,4 +58,20 @@ function unauthorize(idx){
     }).fail(function (error) {
         alert(JSON.stringify(error));
     });
+}
+
+function signOut(idx){
+
+    if(confirm("정말로 탈퇴시키겠습니까?") == true) {
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/v1/signout/' + idx
+        }).done(function () {
+            alert("탈퇴시켰습니다.");
+            window.location.reload();
+        }).fail(function (error) {
+            alert("작성한 모든 게시글을 삭제해야 탈퇴가 가능합니다.");
+            window.location.reload();
+        })
+    }
 }

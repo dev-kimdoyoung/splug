@@ -3,7 +3,9 @@ package com.project.splug.controller;
 import com.project.splug.domain.Post;
 import com.project.splug.domain.dto.AccountSaveRequestDTO;
 import com.project.splug.domain.dto.CommentSaveRequestDTO;
+import com.project.splug.domain.dto.RoleChangeDTO;
 import com.project.splug.domain.dto.UserRegistDTO;
+import com.project.splug.domain.enums.RoleType;
 import com.project.splug.security.annotation.LoginUser;
 import com.project.splug.security.dto.SessionUser;
 import com.project.splug.service.*;
@@ -96,5 +98,15 @@ public class ApiController {
     public Long unauthorizeUser(@PathVariable Long idx){
         userService.unauthorizeUser(idx);
         return idx;
+    }
+
+    @PutMapping("/api/v1/roleChange")
+    public Long roleChange(@RequestBody RoleChangeDTO roleChangeDTO){
+        return userService.roleChange(roleChangeDTO.getIdx(), roleChangeDTO.getRoleType());
+    }
+
+    @DeleteMapping("/api/v1/signout/{idx}")
+    public Long singout(@PathVariable Long idx){
+        return userService.signout(idx);
     }
 }

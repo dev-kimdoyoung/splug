@@ -1,6 +1,7 @@
 package com.project.splug.repository;
 
 import com.project.splug.domain.Post;
+import com.project.splug.domain.User;
 import com.project.splug.domain.enums.PostType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,4 +14,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Page<Post> findAllByPostType(Pageable pageable, PostType postType);
 
     List<Post> findAllByPostTypeOrderByIdxDesc(PostType postType);
+
+    void deleteAllByUser(User user);
 }

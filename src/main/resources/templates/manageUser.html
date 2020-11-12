@@ -35,9 +35,9 @@
 							<th width="9%">학과</th>
 							<th width="9%">생년월일</th>
 							<th width="10%">핸드폰 번호</th>
-							<th width="15%">최근 접속일</th>
+							<th width="13%">최근 접속일</th>
 							<th width="10%">권한</th>
-							<th width="10%">수정</th>
+							<th width="12%">관리</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -53,15 +53,16 @@
 							<td th:text="${#temporals.format(user.lastLoginTime,'yyyy-MM-dd HH:mm')}"></td>
 							<td>
 								<select id="user_type" name="user_type">
-									<option th:value="ROLE_GUEST" th:selected="${user?.roleType?.name() == 'ROLE_GUEST'}">손님</option>
-									<option th:value="ROLE_PREMEMBER" th:selected="${user?.roleType?.name() == 'ROLE_PREMEMBER'}">준회원</option>
-									<option th:value="ROLE_MEMBER" th:selected="${user?.roleType?.name() == 'ROLE_MEMBER'}">정회원</option>
-									<option th:value="ROLE_GRADUDATE" th:selected="${user?.roleType?.name() == 'ROLE_GRADUATE'}">졸업생</option>
-									<option th:value="ROLE_ADMIN" th:selected="${user?.roleType?.name() == 'ROLE_ADMIN'}">관리자</option>
+									<option th:value="GUEST" th:selected="${user?.roleType?.name() == 'GUEST'}">손님</option>
+									<option th:value="PREMEMBER" th:selected="${user?.roleType?.name() == 'PREMEMBER'}">준회원</option>
+									<option th:value="MEMBER" th:selected="${user?.roleType?.name() == 'MEMBER'}">정회원</option>
+									<option th:value="GRADUATE" th:selected="${user?.roleType?.name() == 'GRADUATE'}">졸업생</option>
+									<option th:value="ADMIN" th:selected="${user?.roleType?.name() == 'ADMIN'}">관리자</option>
 								</select>
 							</td>
 							<td>
-								<button id="authorize" th:onclick="'javascript:roleChange('+ ${user.idx} +')'">변경</button>
+								<button id="roleChange" th:onclick="'javascript:roleChange('+ ${user.idx} +')'">변경</button>
+								<button id="signOut" th:onclick="'javascript:signOut('+ ${user.idx} +')'">탈퇴</button>
 							</td>
 						</tr>
 						</tbody>
@@ -107,6 +108,6 @@
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-			<script src="assets/js/regist.js"></script>
+			<script src="assets/js/user.js"></script>
 	</body>
 </html>

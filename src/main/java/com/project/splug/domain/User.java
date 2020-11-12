@@ -5,6 +5,7 @@ import com.project.splug.domain.enums.RoleType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -61,6 +62,10 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.lastLoginTime = lastLoginTime;
+        this.roleType = roleType;
+    }
+
+    public void updateRole(RoleType roleType){
         this.roleType = roleType;
     }
 }
